@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NokLib</name>
+    </assembly>
+    <members>
+        <member name="T:NokLib.StreamScanner">
+            <summary>
+            Utility for easier stream reading
+            </summary>
+        </member>
+        <member name="M:NokLib.StreamScanner.#ctor(System.IO.Stream)">
+            <summary>
+            Creates new StreamScanner for the specified stream
+            </summary>
+            <param name="inputStream">The stream the scanner will use, must support reading</param>
+        </member>
+        <member name="M:NokLib.StreamScanner.ReadLine">
+            <summary>
+            Reads the stream until EoF, or newline character
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NokLib.StreamScanner.Read">
+            <summary>
+            Reads next character from the stream, throws an exception if reading fails
+            </summary>
+            <returns></returns>
+            <exception cref="T:System.IO.EndOfStreamException"></exception>
+            <exception cref="T:System.IO.IOException"></exception>
+        </member>
+        <member name="M:NokLib.StreamScanner.TryRead(System.Char@)">
+            <summary>
+            Reads next character from the stream
+            </summary>
+            <param name="character"></param>
+            <returns>Returns true if the read was successful</returns>
+        </member>
+        <member name="M:NokLib.StreamScanner.ReadInt">
+            <summary>
+            Reads next integer from the stream
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NokLib.StreamScanner.ReadLong">
+            <summary>
+            Reads next long from the stream
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NokLib.StreamScanner.ReadDouble(System.String)">
+            <summary>
+            Reads the next double from the stream
+            </summary>
+            <param name="delimiters">Valid delimiters used for decimal place</param>
+            <returns></returns>
+        </member>
+        <member name="M:NokLib.StreamScanner.Dispose">
+            <summary>
+            Release resources used by the StreamScanner object
+            </summary>
+        </member>
+    </members>
+</doc>
