@@ -23,7 +23,8 @@ namespace NokLib.Pooling
         /// <param name="capacity">The maximum allowed capacity of the pool</param>
         /// <param name="initialAllocation">How many objects to preallocate whent the pool is created</param>
         /// <param name="collectionCheck">Prevents an object from being returned twice</param>
-        public ObjectPool(Func<T> createObject = null, Action<T> onGet = null, Action<T> onRelease = null, Action<T> onDispose = null, int capacity = DEFAULT_MAX_CAPACITY, int initialAllocation =DEFAULT_INIT_ALLOCATION, bool collectionCheck = DEFAULT_COLLECTION_CHECK) : base() {}
+        public ObjectPool(Func<T> createObject = null, Action<T> onGet = null, Action<T> onRelease = null, Action<T> onDispose = null, int capacity = DEFAULT_MAX_CAPACITY, int initialAllocation =DEFAULT_INIT_ALLOCATION, bool collectionCheck = DEFAULT_COLLECTION_CHECK) :
+            base(createObject, onGet, onRelease, onDispose, capacity, initialAllocation, collectionCheck) {}
 
         public override bool HasBeenReturned(T obj) => stack.Contains(obj);
 

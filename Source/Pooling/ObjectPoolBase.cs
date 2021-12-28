@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NokLib.Pooling
 {
-    public abstract class ObjectPoolBase<T> where T : class
+    public abstract class ObjectPoolBase<T> : IObjectPool<T> where T : class
     {
         protected const int DEFAULT_MAX_CAPACITY = 32;
         protected const int DEFAULT_INIT_ALLOCATION = 0;
@@ -19,8 +19,8 @@ namespace NokLib.Pooling
 
         public int Capacity { get; protected set; }
         public int Allocated { get; protected set; }
-        public int RentedObjects => Capacity - FreeObjects;
-        public int FreeObjects => StackCount;
+        public int RentedObjects => Capacity - AvailableObjects;
+        public int AvailableObjects => StackCount;
         public bool DoDulicateCheck { get; set; }
         protected abstract int StackCount { get; }
 
@@ -66,7 +66,7 @@ namespace NokLib.Pooling
         /// <returns>The instanced object</returns>
         public T Get()
         {
-            if (FreeObjects == 0)
+            if (AvailableObjects == 0)
                 AllocateNew();
 
             var rentedObj = StackPop();
@@ -88,7 +88,7 @@ namespace NokLib.Pooling
         public bool TryGet(out T obj)
         {
             obj = null;
-            if (FreeObjects == 0) {
+            if (AvailableObjects == 0) {
                 if (Allocated == Capacity)
                     return false;
                 AllocateNew();
@@ -120,6 +120,10 @@ namespace NokLib.Pooling
             onReleaseFunc?.Invoke(obj);
             StackPush(obj);
         }
+
+        public void Dispose() => Clear(true);
+
+        public void Clear() => Clear(true);
 
         /// <summary>
         /// Calls the OnDispose method (if specified) for each allocated object and clears the pool.

@@ -6,7 +6,7 @@ namespace NokLib.Pooling
 {
     public class PooledObject<T> : IDisposable where T : class
     {
-        private ObjectPoolBase<T> pool;
+        private readonly ObjectPoolBase<T> pool;
         public T Object { get; private set; }
         public PooledObject(T pooledObject, ObjectPoolBase<T> objectPool)
         {

@@ -33,6 +33,11 @@ namespace NokLib {
             }
             return SysRandGenSeedMethodDelegate();
         }
+
+        /// <summary>
+        /// Reinitializes the random number generator with a new generated seed
+        /// </summary>
+        public void ResetSeed() => SetSeed(GenerateSeed());
         public void SetSeed(long seed)
         {
             if (seed != Seed) {

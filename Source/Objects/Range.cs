@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace NokLib
 {
-    public interface IRange<T>
+    public interface IRange<T> : IDeconstructible<T, T>
     {
         public T Min { get; set; }
         public T Max { get; set; }
@@ -69,10 +69,13 @@ namespace NokLib
 
         public override int GetHashCode()
         {
-            int hashCode = 1537547080;
-            hashCode = hashCode * -1521134295 + EqualityComparer<T>.Default.GetHashCode(Min);
-            hashCode = hashCode * -1521134295 + EqualityComparer<T>.Default.GetHashCode(Max);
-            return hashCode;
+            return HashCode.Combine(Min, Max);
+        }
+
+        public void Deconstruct(out T a, out T b)
+        {
+            a = Min;
+            b = Max;
         }
 
         public static bool operator ==(Range<T> left, Range<T> right)
@@ -148,12 +151,14 @@ namespace NokLib
 
         public override int GetHashCode()
         {
-            int hashCode = 1537547080;
-            hashCode = hashCode * -1521134295 + EqualityComparer<T>.Default.GetHashCode(Min);
-            hashCode = hashCode * -1521134295 + EqualityComparer<T>.Default.GetHashCode(Max);
-            return hashCode;
+            return HashCode.Combine(Min, Max);
         }
 
+        public void Deconstruct(out T a, out T b)
+        {
+            a = Min;
+            b = Max;
+        }
 
         public static implicit operator Range<T>(ComparableRange<T> compRange)
         {
@@ -260,10 +265,13 @@ namespace NokLib
 
         public override int GetHashCode()
         {
-            int hashCode = 1537547080;
-            hashCode = hashCode * -1521134295 + Min.GetHashCode();
-            hashCode = hashCode * -1521134295 + Max.GetHashCode();
-            return hashCode;
+            return HashCode.Combine(Min, Max);
+        }
+
+        public void Deconstruct(out int a, out int b)
+        {
+            a = Min;
+            b = Max;
         }
 
 #if UNITY_NOKLIB
@@ -394,10 +402,13 @@ namespace NokLib
 
         public override int GetHashCode()
         {
-            int hashCode = 1537547080;
-            hashCode = hashCode * -1521134295 + Min.GetHashCode();
-            hashCode = hashCode * -1521134295 + Max.GetHashCode();
-            return hashCode;
+            return HashCode.Combine(Min, Max);
+        }
+
+        public void Deconstruct(out float a, out float b)
+        {
+            a = Min;
+            b = Max;
         }
 
 #if UNITY_NOKLIB
