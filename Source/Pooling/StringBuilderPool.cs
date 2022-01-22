@@ -10,7 +10,7 @@ namespace NokLib.Pooling
     {
         private const int STRINGBUILDER_DEFAULT_CAPACITY = 16;
         /// <summary>
-        /// If released StringBuilders length exceeds this threshold its length & capacity is set to 0 to release its unused memory
+        /// If released StringBuilders length exceeds this threshold its length and capacity is set to 0 to release its unused memory
         /// </summary>
         public static int StrigBuilderLengthDeallocationThreshold { get; set; } = 1024;
 

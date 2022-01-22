@@ -30,24 +30,6 @@ namespace NokLib
             return val != 0;
         }
 
-        /// <summary>
-        ///  Returns an array of all enum values of the calling enum
-        /// </summary>
-        /// <typeparam name="T">enum which values should be converted</typeparam>
-        /// <param name="_enum"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T[] ToArray<T>(this T _enum) where T : Enum
-        {
-            return Enum.GetValues(_enum.GetType()).Cast<T>().ToArray();
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string[] ToStringArray<T>(this T _enum) where T : Enum
-        {
-            return Enum.GetNames(_enum.GetType());
-        }
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ToInt<T>(this T value) where T : Enum
         {

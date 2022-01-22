@@ -8,7 +8,10 @@ using Math = System.Math;
 namespace NokLib
 {
     //todo Add more interpolation functions, improve method signatures, add interpolation for more types
-    public static class Interpolation
+    /// <summary>
+    /// Methods for interpolating values
+    /// </summary>
+    public static partial class Interpolation
     {
         #region Double
         public static double Linear(double a, double b, double time)
@@ -68,6 +71,18 @@ namespace NokLib
         public static int LinearClamped(int a, int b, double time)
         {
             return Linear(a, b, MathN.Clamp01(time));
+        }
+
+        /// <summary>
+        /// Linear interpolation with time clamped between -1 and 1
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public static int LinearSignedClamped(int a, int b, double time)
+        {
+            return Linear(a, b, MathN.Clamp(-1, 1, time));
         }
 
         public static int QuadEaseIn(int a, int b, double time)

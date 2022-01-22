@@ -16,6 +16,7 @@ namespace NokLib.Pooling
         protected Action<T> onGetFunc;
         protected Action<T> onReleaseFunc;
         protected Action<T> onDisposeFunc;
+        private bool disposedValue;
 
         public int Capacity { get; protected set; }
         public int Allocated { get; protected set; }
@@ -121,25 +122,19 @@ namespace NokLib.Pooling
             StackPush(obj);
         }
 
-        public void Dispose() => Clear(true);
-
-        public void Clear() => Clear(true);
-
         /// <summary>
-        /// Calls the OnDispose method (if specified) for each allocated object and clears the pool.
+        /// Calls the OnDispose method (if specified) for each allocated object and clears the pool. If no OnDispose method was specified and the item type stored in this pool implements IDisposable interface the objects Dispose method is called instead
         /// </summary>
-        /// <param name="callDispose">Should the Dispose method be called if the object implements IDisposable interface?</param>
-        public void Clear(bool callDispose = true)
+        public void Clear()
         {
             bool isDisposable = typeof(T) is IDisposable;
             var stackEnumerator = StackAsEnumerable();
-            if ((isDisposable && callDispose) || !(onDisposeFunc is null)) {
-                foreach (var obj in stackEnumerator) {
-                    onDisposeFunc?.Invoke(obj);
-                    if (isDisposable && callDispose)
-                        (obj as IDisposable).Dispose();
-                }
-            }
+            if (onDisposeFunc != null)
+                foreach (var item in stackEnumerator)
+                    onDisposeFunc(item);
+            else if (isDisposable)
+                foreach (var item in stackEnumerator)
+                    (item as IDisposable).Dispose();
             StackClear();
             Allocated = 0;
         }
@@ -177,5 +172,30 @@ namespace NokLib.Pooling
         /// </summary>
         /// <returns></returns>
         protected abstract IEnumerable<T> StackAsEnumerable();
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue) {
+                if (disposing) {
+                    // TODO: dispose managed state (managed objects)
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                // TODO: set large fields to null
+                Clear();
+                createFunc = null;
+                onGetFunc = null;
+                onReleaseFunc = null;
+                onDisposeFunc = null;
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

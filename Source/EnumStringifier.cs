@@ -6,7 +6,7 @@ using System.Text;
 namespace NokLib
 {
     /// <summary>
-    /// Class for converting enums to strings, works by caching all enum string values in a dictionary. While slightly slower than regular ToString method (~+7 ns/op), this class does not generate any garbage during conversion
+    /// Class for converting enums to strings, works by caching all enum string values in a dictionary. While neglegibly slower than regular ToString method, this class does not generate any garbage during conversion
     /// </summary>
     public static class EnumStringifier
     {

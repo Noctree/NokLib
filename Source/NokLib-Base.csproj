@@ -11,10 +11,19 @@
     <Product />
     <Company />
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>H:\#Coding\NokLib\Base\NokLib.xml</DocumentationFile>
+    <DefineConstants>TRACE;NOKLIB</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>H:\#Coding\NokLib\Base\Source\NokLib.xml</DocumentationFile>
+    <DefineConstants>TRACE;NOKLIB</DefineConstants>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace NokLib
 {
+    /// <summary>
+    /// Basic math library
+    /// </summary>
     public static class MathN
     {
         public static double Clamp01(double value)
