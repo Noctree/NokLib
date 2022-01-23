@@ -10,6 +10,9 @@ namespace NokLib
     /// </summary>
     public interface IDeconstructible<A>
     {
+        /// <summary>
+        /// Deconstructs the object
+        /// </summary>
         public void Deconstruct(out A a);
     }
 
@@ -19,6 +22,9 @@ namespace NokLib
     /// </summary>
     public interface IDeconstructible<A, B>
     {
+        /// <summary>
+        /// Deconstructs the object
+        /// </summary>
         public void Deconstruct(out A a, out B b);
     }
 
@@ -28,6 +34,9 @@ namespace NokLib
     /// </summary>
     public interface IDeconstructible<A, B, C>
     {
+        /// <summary>
+        /// Deconstructs the object
+        /// </summary>
         public void Deconstruct(out A a, out B b, out C c);
     }
 
@@ -37,6 +46,9 @@ namespace NokLib
     /// </summary>
     public interface IDeconstructible<A, B, C, D>
     {
+        /// <summary>
+        /// Deconstructs the object
+        /// </summary>
         public void Deconstruct(out A a, out B b, out C c, out D d);
     }
 
@@ -46,6 +58,9 @@ namespace NokLib
     /// </summary>
     public interface IDeconstructible<A, B, C, D, E>
     {
+        /// <summary>
+        /// Deconstructs the object
+        /// </summary>
         public void Deconstruct(out A a, out B b, out C c, out D d, out E e);
     }
 
@@ -55,6 +70,9 @@ namespace NokLib
     /// </summary>
     public interface IDeconstructible<A, B, C, D, E, F>
     {
+        /// <summary>
+        /// Deconstructs the object
+        /// </summary>
         public void Deconstruct(out A a, out B b, out C c, out D d, out E e, out F f);
     }
 
@@ -64,6 +82,9 @@ namespace NokLib
     /// </summary>
     public interface IDeconstructible<A, B, C, D, E, F, G>
     {
+        /// <summary>
+        /// Deconstructs the object
+        /// </summary>
         public void Deconstruct(out A a, out B b, out C c, out D d, out E e, out F f, out G g);
     }
 }

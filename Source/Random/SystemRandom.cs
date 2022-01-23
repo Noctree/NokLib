@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace NokLib {
+    /// <summary>
+    /// Adapter for System.Random to be compatible with IRandomProvider interface
+    /// </summary>
     public class SystemRandom : IRandomProvider
     {
         private static Func<int> SysRandGenSeedMethodDelegate = null;

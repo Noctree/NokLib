@@ -12,6 +12,10 @@ namespace NokLib
     /// </summary>
     public class StreamScanner : IDisposable
     {
+        /// <summary>
+        /// Returns a new instance of a StreamScanner, reading from Console Standard Input
+        /// </summary>
+        public static StreamScanner ConsoleStreamScanner => new StreamScanner(Console.OpenStandardInput());
         private const string NUMBER_DELIMITERS = ".,";
         private StreamReader reader;
         private bool disposedValue;
@@ -26,6 +30,12 @@ namespace NokLib
                 throw new ArgumentException($"{nameof(inputStream)} must be readable");
             reader = new StreamReader(inputStream);
         }
+
+        /// <summary>
+        /// Creates new StreamReader from the BaseStream of the provided StreamReader
+        /// </summary>
+        /// <param name="reader"></param>
+        public StreamScanner(StreamReader reader) : this(reader.BaseStream) { }
 
         /// <summary>
         /// Reads the stream until EoF, or newline character

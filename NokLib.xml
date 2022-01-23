@@ -4,9 +4,54 @@
         <name>NokLib</name>
     </assembly>
     <members>
+        <member name="T:NokLib.ClassReflector">
+            <summary>
+            Utilities to help with class reflection
+            </summary>
+        </member>
+        <member name="M:NokLib.ClassReflector.GetAllDerivedTypesOfType``1">
+            <returns>A list of all types deriving from type T</returns>
+        </member>
+        <member name="M:NokLib.ClassReflector.GetAllPublicDerivedTypesOfType``1">
+            <returns>A list of all types deriving from type T that are publicly visible</returns>
+        </member>
+        <member name="M:NokLib.ClassReflector.GetAllDerivedTypesOfType(System.Type)">
+            <returns>A list of all types deriving from type T</returns>
+        </member>
+        <member name="M:NokLib.ClassReflector.GetAllPublicDerivedTypesOfType(System.Type)">
+            <returns>A list of all types deriving from type T that are publicly visible</returns>
+        </member>
+        <member name="M:NokLib.ClassReflector.GetConstantsFrom``1">
+            <typeparam name="T">Type to scan</typeparam>
+             <returns>A FieldInfo array of all constants found in the provided type</returns>
+        </member>
+        <member name="M:NokLib.ClassReflector.GetConstantsFrom(System.Type)">
+            <param name="type">Type to scan</param>
+             <returns>A FieldInfo array of all constants found in the provided type</returns>
+        </member>
+        <member name="M:NokLib.ClassReflector.GetConstantsOfTypeFrom``1(System.Type)">
+            <typeparam name="T">Type to be scanned</typeparam>
+            <param name="constantType">Type of constants to return</param>
+            <returns>A FieldInfo array of all constants of specified type found in the source type</returns>
+        </member>
+        <member name="M:NokLib.ClassReflector.GetConstantsOfTypeFrom(System.Type,System.Type)">
+            <param name="sourceType">Type to be scanned</param>
+            <param name="constantType">Type of constants to return</param>
+            <returns>A FieldInfo array of all constants of specified type found in the source type</returns>
+        </member>
+        <member name="T:NokLib.ConsoleReader">
+            <summary>
+            Utility class for reading Console input
+            </summary>
+        </member>
+        <member name="T:NokLib.ConsoleWriter">
+            <summary>
+            Utilities for writing into the console output
+            </summary>
+        </member>
         <member name="T:NokLib.EnumStringifier">
             <summary>
-            Class for converting enums to strings, works by caching all enum string values in a dictionary. While slightly slower than regular ToString method (~+7 ns/op), this class does not generate any garbage during conversion
+            Class for converting enums to strings, works by caching all enum string values in a dictionary. While neglegibly slower than regular ToString method, this class does not generate any garbage during conversion
             </summary>
         </member>
         <member name="M:NokLib.EnumStringifier.ToString``1(``0)">
@@ -29,6 +74,17 @@
             Release resources occupied by a conversion table for enum of type T. Useful for usage with large enums
             </summary>
             <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:NokLib.LimitReachedException.#ctor">
+            <summary>
+            Create a new instance of the exception
+            </summary>
+        </member>
+        <member name="M:NokLib.LimitReachedException.#ctor(System.String)">
+            <summary>
+            Create a new instance of the exception with a message describing the cause of the exception
+            </summary>
+            <param name="message">Cause of the exception</param>
         </member>
         <member name="M:NokLib.CastingExtensions.ToInt(System.Boolean)">
             <summary>
@@ -196,10 +252,20 @@
             <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
             </summary>
         </member>
+        <member name="M:NokLib.IDeconstructible`1.Deconstruct(`0@)">
+            <summary>
+            Deconstructs the object
+            </summary>
+        </member>
         <member name="T:NokLib.IDeconstructible`2">
             <summary>
             Enables use of the 
             <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
+            </summary>
+        </member>
+        <member name="M:NokLib.IDeconstructible`2.Deconstruct(`0@,`1@)">
+            <summary>
+            Deconstructs the object
             </summary>
         </member>
         <member name="T:NokLib.IDeconstructible`3">
@@ -208,10 +274,20 @@
             <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
             </summary>
         </member>
+        <member name="M:NokLib.IDeconstructible`3.Deconstruct(`0@,`1@,`2@)">
+            <summary>
+            Deconstructs the object
+            </summary>
+        </member>
         <member name="T:NokLib.IDeconstructible`4">
             <summary>
             Enables use of the 
             <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
+            </summary>
+        </member>
+        <member name="M:NokLib.IDeconstructible`4.Deconstruct(`0@,`1@,`2@,`3@)">
+            <summary>
+            Deconstructs the object
             </summary>
         </member>
         <member name="T:NokLib.IDeconstructible`5">
@@ -220,16 +296,31 @@
             <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
             </summary>
         </member>
+        <member name="M:NokLib.IDeconstructible`5.Deconstruct(`0@,`1@,`2@,`3@,`4@)">
+            <summary>
+            Deconstructs the object
+            </summary>
+        </member>
         <member name="T:NokLib.IDeconstructible`6">
             <summary>
             Enables use of the 
             <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
             </summary>
         </member>
+        <member name="M:NokLib.IDeconstructible`6.Deconstruct(`0@,`1@,`2@,`3@,`4@,`5@)">
+            <summary>
+            Deconstructs the object
+            </summary>
+        </member>
         <member name="T:NokLib.IDeconstructible`7">
             <summary>
             Enables use of the 
             <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
+            </summary>
+        </member>
+        <member name="M:NokLib.IDeconstructible`7.Deconstruct(`0@,`1@,`2@,`3@,`4@,`5@,`6@)">
+            <summary>
+            Deconstructs the object
             </summary>
         </member>
         <member name="M:NokLib.Pooling.IObjectPool`1.Get">
@@ -351,11 +442,10 @@
             </summary>
             <param name="obj">The object to be released</param>
         </member>
-        <member name="M:NokLib.Pooling.ObjectPoolBase`1.Clear(System.Boolean)">
+        <member name="M:NokLib.Pooling.ObjectPoolBase`1.Clear">
             <summary>
-            Calls the OnDispose method (if specified) for each allocated object and clears the pool.
+            Calls the OnDispose method (if specified) for each allocated object and clears the pool. If no OnDispose method was specified and the item type stored in this pool implements IDisposable interface the objects Dispose method is called instead
             </summary>
-            <param name="callDispose">Should the Dispose method be called if the object implements IDisposable interface?</param>
         </member>
         <member name="M:NokLib.Pooling.ObjectPoolBase`1.HasBeenReturned(`0)">
             <summary>
@@ -398,6 +488,21 @@
             <summary>
             If released StringBuilders length exceeds this threshold its length and capacity is set to 0 to release its unused memory
             </summary>
+        </member>
+        <member name="T:NokLib.IParser`1">
+            <summary>
+            Interface for implementing custom string parsers
+            </summary>
+            <typeparam name="T">Type this parser is able to parse</typeparam>
+        </member>
+        <member name="M:NokLib.IParser`1.TryParse(System.String,`0@)">
+            <summary>
+            Tries to convert a string representation of T into an instance of T
+            </summary>
+            <param name="input">string representation of an object</param>
+            <param name="result">Parser result</param>
+            <returns>True if parsing was successful</returns>
+            <exception cref="T:System.FormatException">Thrown when the input string couldn't be successfully parsed</exception>
         </member>
         <member name="P:NokLib.IRandomProvider.SystemRandom">
             <summary>
@@ -503,9 +608,34 @@
             Methods for remapping values from old range to new
             </summary>
         </member>
+        <member name="T:NokLib.NokLibBase">
+            <summary>
+            Class for storing version info about the library
+            </summary>
+        </member>
+        <member name="F:NokLib.NokLibBase.Version">
+            <summary>
+            Version of the class
+            </summary>
+        </member>
+        <member name="F:NokLib.NokLibBase.VersionName">
+            <summary>
+            Name of the build
+            </summary>
+        </member>
+        <member name="F:NokLib.NokLibBase.FullVersionName">
+            <summary>
+            Full name of the build
+            </summary>
+        </member>
         <member name="T:NokLib.StreamScanner">
             <summary>
             Utility for easier stream reading
+            </summary>
+        </member>
+        <member name="P:NokLib.StreamScanner.ConsoleStreamScanner">
+            <summary>
+            Returns a new instance of a StreamScanner, reading from Console Standard Input
             </summary>
         </member>
         <member name="M:NokLib.StreamScanner.#ctor(System.IO.Stream)">
@@ -513,6 +643,12 @@
             Creates new StreamScanner for the specified stream
             </summary>
             <param name="inputStream">The stream the scanner will use, must support reading</param>
+        </member>
+        <member name="M:NokLib.StreamScanner.#ctor(System.IO.StreamReader)">
+            <summary>
+            Creates new StreamReader from the BaseStream of the provided StreamReader
+            </summary>
+            <param name="reader"></param>
         </member>
         <member name="M:NokLib.StreamScanner.ReadLine">
             <summary>
@@ -557,6 +693,34 @@
         <member name="M:NokLib.StreamScanner.Dispose">
             <summary>
             Release resources used by the StreamScanner object
+            </summary>
+        </member>
+        <member name="F:NokLib.Parsers.IntParser.Instance">
+            <summary>
+            Global instance of IntParser
+            </summary>
+        </member>
+        <member name="T:NokLib.Parsers.UIntParser">
+            <summary>
+            Integer parser implementing the IParser interface
+            </summary>
+        </member>
+        <member name="F:NokLib.Parsers.UIntParser.Instance">
+            <summary>
+            Global instance of IntParser
+            </summary>
+        </member>
+        <member name="M:NokLib.Parsers.UIntParser.TryParseS(System.String,System.UInt32@)">
+            <summary>
+            Static syntax sugar method for calling IntParser.Instance.TryParse
+            </summary>
+            <param name="input"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NokLib.SystemRandom">
+            <summary>
+            Adapter for System.Random to be compatible with IRandomProvider interface
             </summary>
         </member>
         <member name="M:NokLib.SystemRandom.#ctor">
