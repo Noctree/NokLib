@@ -17,7 +17,7 @@ namespace NokLib
         /// </summary>
         public static StreamScanner ConsoleStreamScanner => new StreamScanner(Console.OpenStandardInput());
         private const string NUMBER_DELIMITERS = ".,";
-        private StreamReader reader;
+        private readonly StreamReader reader;
         private bool disposedValue;
 
         /// <summary>

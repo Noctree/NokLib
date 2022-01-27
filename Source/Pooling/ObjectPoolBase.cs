@@ -34,8 +34,8 @@ namespace NokLib.Pooling
         /// <param name="onDispose">Used for disposal of the object</param>
         /// <param name="capacity">The maximum allowed capacity of the pool</param>
         /// <param name="initialAllocation">How many objects to preallocate whent the pool is created</param>
-        /// <param name="collectionCheck">Prevents an object from being returned twice</param>
-        protected ObjectPoolBase(Func<T> createObject = null, Action<T> onGet = null, Action<T> onRelease = null, Action<T> onDispose = null, int capacity = DEFAULT_MAX_CAPACITY, int initialAllocation = DEFAULT_INIT_ALLOCATION, bool collectionCheck = DEFAULT_COLLECTION_CHECK)
+        /// <param name="doDuplicateCheck">Prevents an object from being returned twice</param>
+        protected ObjectPoolBase(Func<T> createObject = null, Action<T> onGet = null, Action<T> onRelease = null, Action<T> onDispose = null, int capacity = DEFAULT_MAX_CAPACITY, int initialAllocation = DEFAULT_INIT_ALLOCATION, bool doDuplicateCheck = DEFAULT_COLLECTION_CHECK)
         {
             initialAllocation = initialAllocation > capacity ? capacity : initialAllocation;
             Capacity = capacity;
@@ -43,7 +43,7 @@ namespace NokLib.Pooling
             onGetFunc = onGet;
             onReleaseFunc = onRelease;
             onDisposeFunc = onDispose;
-            DoDulicateCheck = collectionCheck;
+            DoDulicateCheck = doDuplicateCheck;
 
             for (int i = 0; i < initialAllocation; i++)
                 AllocateNew();

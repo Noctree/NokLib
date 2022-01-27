@@ -15,7 +15,10 @@ namespace NokLib.Pooling
         protected override int StackCount => stack.Count;
 
         public ConcurrentObjectPool(Func<T> createObject = null, Action<T> onGet = null, Action<T> onRelease = null, Action<T> onDispose = null, int capacity = DEFAULT_MAX_CAPACITY, int initialAllocation = DEFAULT_INIT_ALLOCATION, bool collectionCheck = DEFAULT_COLLECTION_CHECK) : 
-            base(createObject, onGet, onRelease, onDispose, capacity, initialAllocation, collectionCheck) { }
+            base(createObject, onGet, onRelease, onDispose, capacity, initialAllocation, collectionCheck)
+        {
+            stack = new ConcurrentStack<T>();
+        }
 
         public override bool HasBeenReturned(T obj)
         {

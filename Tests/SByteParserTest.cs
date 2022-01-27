@@ -28,13 +28,13 @@ namespace Tests
         [TestMethod]
         public void Overflow()
         {
-            Assert.AreEqual(false, FastSByteParser.TryParseS("128", out sbyte result));
+            Assert.AreEqual(false, FastSByteParser.TryParseS("128", out sbyte _));
         }
 
         [TestMethod]
         public void Underflow()
         {
-            Assert.AreEqual(false, FastSByteParser.TryParseS("-129", out sbyte result));
+            Assert.AreEqual(false, FastSByteParser.TryParseS("-129", out sbyte _));
         }
 
         [TestMethod]

@@ -22,6 +22,7 @@ namespace NokLib.Pooling
                 sb.Length = 0;
                 sb.Capacity = 0;
             }
+            sb.Clear();
         }
 
         private static void OnGet(StringBuilder sb)

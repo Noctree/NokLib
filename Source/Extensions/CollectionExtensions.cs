@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NokLib.Pooling;
 
 namespace NokLib
 {
@@ -31,6 +32,28 @@ namespace NokLib
             foreach (var item in collection)
                 disposeFunction(item);
             collection.Clear();
+        }
+
+        /// <summary>
+        ///  Formats the collection 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        public static string ToCollectionString<T>(this ICollection<T> collection)
+        {
+            const string separator = ", ";
+            var sb = StringBuilderPool.Get();
+            sb.Append('(');
+            foreach (var item in collection) {
+                sb.Append(item.ToString());
+                sb.Append(separator);
+            }
+            sb.Remove(sb.Length - 2, 2);
+            sb.Append(')');
+            string result = sb.ToString();
+            StringBuilderPool.Release(sb);
+            return result;
         }
     }
 }

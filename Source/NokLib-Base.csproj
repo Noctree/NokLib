@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>NokLib</RootNamespace>
     <AssemblyName>NokLib</AssemblyName>
     <ApplicationIcon />
@@ -16,12 +16,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>H:\#Coding\NokLib\Base\NokLib.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <DefineConstants>TRACE;NOKLIB</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>H:\#Coding\NokLib\Base\Source\NokLib.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <DefineConstants>TRACE;NOKLIB</DefineConstants>
     <WarningLevel>5</WarningLevel>
   </PropertyGroup>
