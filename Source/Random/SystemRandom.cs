@@ -53,7 +53,7 @@ namespace NokLib {
 
         public double NextDouble(double max) => max * Random.NextDouble();
 
-        public double NextDouble(double min, double max) => Interpolation.Linear(min, max, Random.NextDouble());
+        public double NextDouble(double min, double max) => InterpolationD.Linear(min, max, Random.NextDouble());
 
         public int NextInt() => Random.Next();
 

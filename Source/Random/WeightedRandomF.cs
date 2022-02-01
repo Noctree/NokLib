@@ -16,7 +16,7 @@ namespace NokLib
 
         public T SelectRandom()
         {
-            var target = Interpolation.Linear(0, WeightSum, rng.Percentage());
+            var target = InterpolationD.Linear(0, WeightSum, rng.Percentage());
             return Select(target);
         }
 

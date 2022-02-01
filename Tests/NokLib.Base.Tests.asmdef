@@ -1,0 +1,16 @@
+{
+    "name": "NokLib.Base.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1dae3a47b7d973f4e8553ddc85ce0387"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

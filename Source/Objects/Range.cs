@@ -380,7 +380,7 @@ namespace NokLib
 
         public float Lerp(float time)
         {
-            return Interpolation.Linear(Min, Max, time).ToFloat();
+            return InterpolationF.Linear(Min, Max, time);
         }
 
         public float Interpolate(Func<float, float, float, float> interpolationFunc, float time)

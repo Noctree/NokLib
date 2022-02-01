@@ -16,7 +16,21 @@ namespace NokLib
             return Clamp(0, 1, value);
         }
 
+        public static float Clamp01(float value)
+        {
+            return Clamp(0, 1, value);
+        }
+
         public static double Clamp(double min, double max, double value)
+        {
+            if (value < min)
+                return min;
+            if (value > max)
+                return max;
+            return value;
+        }
+
+        public static float Clamp(float min, float max, float value)
         {
             if (value < min)
                 return min;
