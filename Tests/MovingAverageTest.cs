@@ -32,7 +32,7 @@ namespace Tests
             average.Add(4);
             average.Add(5);
             Assert.AreEqual(3, average.Average);
-            average.Clear();
+            average.Reset();
             Assert.AreEqual(0, average.Average);
         }
 

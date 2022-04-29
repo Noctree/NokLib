@@ -18,5 +18,13 @@ namespace NokLib
         /// <returns>True if parsing was successful</returns>
         /// <exception cref="FormatException">Thrown when the input string couldn't be successfully parsed</exception>
         public bool TryParse(string input, out T result);
+
+        /// <summary>
+        /// Converts a string representation of T into an instance of T, throws a FormatException if parsing fails
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="FormatException">Thrown when the parsing fails</exception>
+        public T Parse(string input);
     }
 }

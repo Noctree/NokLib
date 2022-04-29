@@ -8,6 +8,14 @@ namespace NokLib.Parsers
     {
         private const byte MinSByteValue = 128;
         public static readonly FastSByteParser Instance = new FastSByteParser();
+
+        public sbyte Parse(string input)
+        {
+            if (TryParse(input, out var result))
+                return result;
+            else
+                throw new FormatException();
+        }
         public bool TryParse(string input, out sbyte result)
         {
             result = 0;

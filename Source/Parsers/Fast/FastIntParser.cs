@@ -11,10 +11,18 @@ namespace NokLib.Parsers
         /// Global instance of IntParser
         /// </summary>
         public static readonly FastIntParser Instance = new FastIntParser();
+
+        public int Parse(string input)
+        {
+            if (TryParse(input, out var result))
+                return result;
+            else
+                throw new FormatException();
+        }
         public bool TryParse(string input, out int result)
         {
             result = 0;
-            if (input.Length == 0)
+            if (string.IsNullOrEmpty(input))
                 return false;
 
             bool negative = input[0] == '-';

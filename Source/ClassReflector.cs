@@ -12,19 +12,31 @@ namespace NokLib
     /// </summary>
     public static class ClassReflector
     {
+        ///<summary>
+        /// Get a list of all types deriving from type T
+        ///</summary>
+        ///<typeparam name="T">Parent type</typeparam>
         /// <returns>A list of all types deriving from type T</returns>
         public static List<Type> GetAllDerivedTypesOfType<T>()
         {
             return GetAllDerivedTypesOfType(typeof(T));
         }
 
-        /// <returns>A list of all types deriving from type T that are publicly visible</returns>
+        ///<summary>
+        ///Get a list of all public types deriving from type T
+        ///</summary>
+        ///<typeparam name="T">Parent type</typeparam>
+        /// <returns>A list of all public types deriving from type T that are publicly visible</returns>
         public static List<Type> GetAllPublicDerivedTypesOfType<T>()
         {
             return GetAllPublicDerivedTypesOfType(typeof(T));
         }
 
-        /// <returns>A list of all types deriving from type T</returns>
+        ///<summary>
+        ///Get a list of all types deriving from type T
+        ///</summary>
+        ///<param name="type">Parent type</param>
+        /// <returns>A list of all types deriving from type T that are publicly visible</returns>
         public static List<Type> GetAllDerivedTypesOfType(Type type)
         {
             return (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
@@ -33,6 +45,10 @@ namespace NokLib
                     select assemblyType).ToList();
         }
 
+        ///<summary>
+        ///Get a list of all public types deriving from type T
+        ///</summary>
+        ///<param name="type">Parent type</param>
         /// <returns>A list of all types deriving from type T that are publicly visible</returns>
         public static List<Type> GetAllPublicDerivedTypesOfType(Type type)
         {
@@ -42,10 +58,16 @@ namespace NokLib
                     select assemblyType).ToList();
         }
 
+        ///<summary>
+        /// Get all constant fields from type
+        ///</summary>
         ///<typeparam name="T">Type to scan</typeparam>
         /// <returns>A FieldInfo array of all constants found in the provided type</returns>
         public static FieldInfo[] GetConstantsFrom<T>() => GetConstantsFrom(typeof(T));
 
+        ///<summary>
+        /// Get all constant fields from type
+        ///</summary>
         ///<param name="type">Type to scan</param>
         /// <returns>A FieldInfo array of all constants found in the provided type</returns>
         public static FieldInfo[] GetConstantsFrom(Type type)
@@ -60,11 +82,17 @@ namespace NokLib
             return constants.ToArray();
         }
 
+        ///<summary>
+        /// Get all constants of specific type from a class
+        ///</summary>
         /// <typeparam name="T">Type to be scanned</typeparam>
         /// <param name="constantType">Type of constants to return</param>
         /// <returns>A FieldInfo array of all constants of specified type found in the source type</returns>
         public static FieldInfo[] GetConstantsOfTypeFrom<T>(Type constantType) => GetConstantsOfTypeFrom(typeof(T), constantType);
 
+        ///<summary>
+        /// Get all constants of specific type from a class
+        ///</summary>
         /// <param name="sourceType">Type to be scanned</param>
         /// <param name="constantType">Type of constants to return</param>
         /// <returns>A FieldInfo array of all constants of specified type found in the source type</returns>

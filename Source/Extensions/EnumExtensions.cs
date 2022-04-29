@@ -8,18 +8,15 @@ namespace NokLib
 {
     public static class EnumExtensions
     {
-
         /// <summary>
         /// Converts the value to string using EnumStringifier
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="val"></param>
-        /// <returns></returns>
         public static string ToStringNonAlloc<T>(this T val) where T : Enum
         {
             return EnumStringifier.ToString(val);
         }
-
 
         /// <summary>
         ///  Returns an array of all enum values of the calling enum

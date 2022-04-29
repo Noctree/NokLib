@@ -34,7 +34,7 @@ namespace NokLib.Pooling
         protected override T StackPop()
         {
             if (!stack.TryPop(out T obj)) {
-                throw new ConcurrentException("Failed to retrieve object from the internal stack");
+                throw new ConcurrencyException("Failed to retrieve object from the internal stack");
             }
             return obj;
         }

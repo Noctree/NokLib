@@ -34,5 +34,8 @@ namespace NokLib.Pooling
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+        public override string ToString() => Object.ToString();
+        public override int GetHashCode() => Object.GetHashCode();
     }
 }

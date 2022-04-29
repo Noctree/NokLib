@@ -9,6 +9,14 @@ namespace NokLib.Parsers
         private const ulong MinLongValue = 9223372036854775808;
         public static readonly FastLongParser Instance = new FastLongParser();
 
+        public long Parse(string input)
+        {
+            if (TryParse(input, out var result))
+                return result;
+            else
+                throw new FormatException();
+        }
+
         public bool TryParse(string input, out long result)
         {
             result = 0;

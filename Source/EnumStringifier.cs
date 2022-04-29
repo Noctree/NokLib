@@ -10,7 +10,7 @@ namespace NokLib
     /// </summary>
     public static class EnumStringifier
     {
-        private static Dictionary<Type, EnumConverter> stringifiedEnums;
+        private readonly static Dictionary<Type, EnumConverter> stringifiedEnums;
 
         static EnumStringifier()
         {
@@ -27,6 +27,9 @@ namespace NokLib
         {
             if (!stringifiedEnums.ContainsKey(typeof(T)))
                 CreateEnumConversionTable<T>();
+            var converter = stringifiedEnums[typeof(T)];
+            if (converter is null)
+                throw new InvalidOperationException($"EnumStringifier does not contain values for enum {typeof(T)} despite generating a conversion table");
             return (stringifiedEnums[typeof(T)] as EnumConverter<T>).Convert(value);
         }
 
@@ -34,7 +37,6 @@ namespace NokLib
         /// Returns names of each enum value.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
         public static string[] GetNames<T>() where T : Enum
         {
             if (!stringifiedEnums.ContainsKey(typeof(T)))

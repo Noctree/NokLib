@@ -35,7 +35,7 @@ namespace NokLib
         }
 
         /// <summary>
-        ///  Formats the collection 
+        ///  Formats the collection
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>

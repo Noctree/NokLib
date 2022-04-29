@@ -1,4 +1,5 @@
 ﻿using System;
+using NokLib.Pooling;
 
 namespace NokLib
 {
@@ -8,15 +9,24 @@ namespace NokLib
     [Serializable]
     public class LimitReachedException : Exception
     {
-        /// <summary>
-        /// Create a new instance of the exception
-        /// </summary>
-        public LimitReachedException() { }
-        /// <summary>
-        /// Create a new instance of the exception with a message describing the cause of the exception
-        /// </summary>
-        /// <param name="message">Cause of the exception</param>
-        public LimitReachedException(string message) : base(message) { }
+        public LimitReachedException(string message = null) : base(message) { }
+    }
+    /// <summary>
+    /// Thrown when a collection limit is reached
+    /// </summary>
+    [Serializable]
+    public class LimitReachedException<T> : LimitReachedException
+    {
+        public readonly T Limit;
+        public readonly T ActualValue;
+        public LimitReachedException(T limit, T actualValue, string message = null) :
+            base(message is null?
+                $"Value {actualValue} exceeds maximum limit {limit}" :
+                $"Value {actualValue} exceeds maximum limit {limit} ({message})")
+        {
+            Limit = limit;
+            ActualValue = actualValue;
+        }
     }
 
     /// <summary>
@@ -98,23 +108,6 @@ namespace NokLib
     }
 
     /// <summary>
-    /// Thrown when a system is in a state where it cannot execute the called method
-    /// </summary>
-    [Serializable]
-    public class InvalidStateException : Exception
-    {
-        /// <summary>
-        /// Create a new instance of the exception
-        /// </summary>
-        public InvalidStateException() { }
-        /// <summary>
-        /// Create a new instance of the exception with a message describing the cause of the exception
-        /// </summary>
-        /// <param name="message">Cause of the exception</param>
-        public InvalidStateException(string message) : base(message) { }
-    }
-
-    /// <summary>
     /// Thrown when a type is not a type the method requires
     /// </summary>
     [Serializable]
@@ -171,16 +164,16 @@ namespace NokLib
     /// Thrown when an operation fails because of issues connected with concurrency
     /// </summary>
     [Serializable]
-    public class ConcurrentException : Exception
+    public class ConcurrencyException : Exception
     {
         /// <summary>
         /// Create a new instance of the exception
         /// </summary>
-        public ConcurrentException() : base() { }
+        public ConcurrencyException() : base() { }
         /// <summary>
         /// Create a new instance of the exception with a message describing the cause of the exception
         /// </summary>
         /// <param name="message">Cause of the exception</param>
-        public ConcurrentException(string message) : base(message) { }
+        public ConcurrencyException(string message) : base(message) { }
     }
 }

@@ -12,15 +12,25 @@ namespace NokLib
         protected double sum;
         protected int count;
         public double Average { get; protected set; }
-        public MovingAverage(int count)
+
+        /// <summary>
+        /// Create a new MovingAverage calculator
+        /// </summary>
+        /// <param name="size">Size of the internal buffer, bigger size means a longer record of values</param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public MovingAverage(int size)
         {
-            if (count <= 0)
-                throw new ArgumentOutOfRangeException(nameof(count), "Must greater than 0");
-            buffer = new RingBuffer<double>(count);
+            if (size <= 0)
+                throw new ArgumentOutOfRangeException(nameof(size), "Must greater than 0");
+            buffer = new RingBuffer<double>(size);
             sum = default;
-            count = 0;
         }
 
+        /// <summary>
+        /// Add another value to the average
+        /// </summary>
+        /// <param name="next"></param>
+        /// <returns>New average</returns>
         public double Add(double next)
         {
             sum = sum - buffer[0] + next;
@@ -38,7 +48,7 @@ namespace NokLib
             return Average;
         }
 
-        public void Clear()
+        public void Reset()
         {
             buffer.Clear();
             sum = 0;

@@ -7,6 +7,14 @@ namespace NokLib.Parsers
     public class FastByteParser : IParser<byte>
     {
         public static readonly FastByteParser Instance = new FastByteParser();
+
+        public byte Parse(string input)
+        {
+            if (TryParse(input, out var result))
+                return result;
+            else
+                throw new FormatException();
+        }
         public bool TryParse(string input, out byte result)
         {
             result = 0;
