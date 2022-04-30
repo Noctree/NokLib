@@ -7,44 +7,61 @@ namespace NokLib
     public abstract class WeightedRandomBase<T, W> where W : struct, IComparable, IConvertible, IFormattable, IComparable<W>, IEquatable<W>
     {
         protected W WeightSum;
-        protected Dictionary<T, W> Weights;
-        public WeightedRandomBase(Dictionary<T, W> weights)
+        protected List<ValueTuple<T, W>> Weights;
+        protected WeightedRandomBase(IEnumerable<ValueTuple<T, W>> weights)
         {
-            this.Weights = weights;
-            WeightSum = SumWeights(weights.Values.GetEnumerator());
+            this.Weights = new List<ValueTuple<T, W>>(weights);
+            WeightSum = SumWeights(this.Weights);
         }
 
-        public void SetWeights(Dictionary<T, W> weights)
+        public void SetWeights(IEnumerable<ValueTuple<T, W>> newWeights)
         {
-            this.Weights.Clear();
-            this.Weights = weights;
-            SumWeights(weights.Values.GetEnumerator());
+            Weights.Clear();
+            Weights.AddRange(newWeights);
+            SumWeights(Weights);
         }
 
         public void AddWeight(W weight, T obj)
         {
-            this.Weights.Add(obj, weight);
-            SumWeights(Weights.Values.GetEnumerator());
+            Weights.Add((obj, weight));
+            SumWeights(Weights);
         }
 
-        public void RemoveWeightByObject(T obj)
+        public void RemoveByObject(T obj)
         {
-            this.Weights.Remove(obj);
+            if (obj is null)
+                return;
+            for (int i = 0; i < Weights.Count; i++)
+            {
+                var value = Weights[i];
+                if (value.Item1 != null && value.Item1.Equals(obj))
+                {
+                    Weights.RemoveAt(i);
+                    return;
+                }
+            }
         }
 
-        public void RemoveWeight(W weight)
+        public void RemoveByWeight(W weight)
         {
-            var toRemove = Weights.Where(pair => pair.Value.Equals(weight)).Select(pair => pair.Key).ToList();
-            toRemove.ForEach(obj => Weights.Remove(obj));
-            SumWeights(Weights.Values.GetEnumerator());
+            for (int i = 0; i < Weights.Count; i++)
+            {
+                var value = Weights[i];
+                if (value.Item2.Equals(weight))
+                {
+                    Weights.RemoveAt(i);
+                    --i;
+                }
+            }
+            SumWeights(Weights);
         }
 
-        public Dictionary<T, W> GetWeights()
+        public IReadOnlyList<ValueTuple<T, W>> GetWeights()
         {
-            return new Dictionary<T, W>(Weights);
+            return Weights;
         }
         public abstract T Select(W weight);
 
-        protected abstract W SumWeights(IEnumerator<W> weights);
+        protected abstract W SumWeights(IReadOnlyList<ValueTuple<T, W>> weights);
     }
 }

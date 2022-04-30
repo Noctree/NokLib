@@ -9,7 +9,7 @@ namespace NokLib.Pooling
         private readonly ObjectPoolBase<T> pool;
         private bool disposedValue;
 
-        public T Object { get; private set; }
+        public T Object { get; }
         public PooledObject(T pooledObject, ObjectPoolBase<T> objectPool)
         {
             pool = objectPool;
@@ -35,7 +35,7 @@ namespace NokLib.Pooling
             GC.SuppressFinalize(this);
         }
 
-        public override string ToString() => Object.ToString();
+        public override string? ToString() => Object.ToString();
         public override int GetHashCode() => Object.GetHashCode();
     }
 }

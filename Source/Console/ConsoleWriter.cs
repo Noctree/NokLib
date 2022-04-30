@@ -10,14 +10,15 @@ namespace NokLib.ConsoleUtils
     /// </summary>
     public static class ConsoleWriter
     {
+        private const string NULL = "null";
         public static void WriteLine() => SysConsole.WriteLine();
-        public static void WriteLine<T>(T value) => SysConsole.WriteLine(value.ToString());
+        public static void WriteLine<T>(T value) => SysConsole.WriteLine(value is null ? NULL : value.ToString());
         public static void WriteLine<T>(T value, ConsoleColor foreground)
         {
             var color = SysConsole.ForegroundColor;
             SysConsole.ForegroundColor = foreground;
 
-            SysConsole.WriteLine(value.ToString());
+            WriteLine(value);
 
             SysConsole.ForegroundColor = color;
         }
@@ -28,18 +29,18 @@ namespace NokLib.ConsoleUtils
             SysConsole.ForegroundColor = foreground;
             SysConsole.BackgroundColor = background;
 
-            SysConsole.WriteLine(value.ToString());
+            WriteLine(value);
 
             SysConsole.ForegroundColor = foreColor;
             SysConsole.BackgroundColor = backColor;
         }
-        public static void Write<T>(T value) => SysConsole.Write(value.ToString());
+        public static void Write<T>(T value) => SysConsole.Write(value is null? NULL : value.ToString());
         public static void Write<T>(T value, ConsoleColor foreground)
         {
             var color = SysConsole.ForegroundColor;
             SysConsole.ForegroundColor = foreground;
 
-            SysConsole.Write(value.ToString());
+            Write(value);
 
             SysConsole.ForegroundColor = color;
         }
@@ -50,7 +51,7 @@ namespace NokLib.ConsoleUtils
             SysConsole.ForegroundColor = foreground;
             SysConsole.BackgroundColor = background;
 
-            SysConsole.Write(value.ToString());
+            Write(value);
 
             SysConsole.ForegroundColor = foreColor;
             SysConsole.BackgroundColor = backColor;

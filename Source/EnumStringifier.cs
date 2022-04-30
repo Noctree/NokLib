@@ -27,10 +27,10 @@ namespace NokLib
         {
             if (!stringifiedEnums.ContainsKey(typeof(T)))
                 CreateEnumConversionTable<T>();
-            var converter = stringifiedEnums[typeof(T)];
+            EnumConverter<T>? converter = stringifiedEnums[typeof(T)] as EnumConverter<T>;
             if (converter is null)
                 throw new InvalidOperationException($"EnumStringifier does not contain values for enum {typeof(T)} despite generating a conversion table");
-            return (stringifiedEnums[typeof(T)] as EnumConverter<T>).Convert(value);
+            return converter.Convert(value);
         }
 
         /// <summary>

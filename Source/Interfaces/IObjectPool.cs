@@ -21,13 +21,13 @@ namespace NokLib.Pooling
         /// </summary>
         /// <param name="obj"></param>
         /// <returns>False if no objects are available and the pool has reached its capacity</returns>
-        public bool TryGet(out T obj);
+        public bool TryGet(out T? obj);
         /// <summary>
         /// Tries to get a pooled instance of an object using the PooledObject wrapper
         /// </summary>
         /// <param name="safeObj"></param>
         /// <returns></returns>
-        public bool TrySafeGet(out PooledObject<T> safeObj);
+        public bool TrySafeGet(out PooledObject<T>? safeObj);
         /// <summary>
         /// Releases the object back to the pool
         /// </summary>

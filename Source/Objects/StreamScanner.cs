@@ -43,7 +43,7 @@ namespace NokLib
         /// <returns></returns>
         public string ReadLine()
         {
-            return reader.ReadLine();
+            return reader.ReadLine() ?? String.Empty;
         }
 
         /// <summary>
@@ -140,14 +140,18 @@ namespace NokLib
             long result = 0;
             while (!reader.EndOfStream && char.IsDigit((char)reader.Peek())) {
                 result *= 10;
-                if (result == maxNumberRounded) {
+                if (result == maxNumberRounded)
+                {
                     int lastDigit = Read() - '0';
                     if (lastDigit > maxLastDigit)
                         return result / 10;
                     else
                         return result + lastDigit;
-                } else
+                }
+                else
+                {
                     result += Read() - '0';
+                }
             }
             return result;
         }

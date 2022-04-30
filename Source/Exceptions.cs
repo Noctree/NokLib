@@ -9,7 +9,9 @@ namespace NokLib
     [Serializable]
     public class LimitReachedException : Exception
     {
-        public LimitReachedException(string message = null) : base(message) { }
+        public LimitReachedException(string? message = null) : base(message) { }
+        public LimitReachedException(string? message, Exception inner) : base(message, inner) { }
+        public LimitReachedException() { }
     }
     /// <summary>
     /// Thrown when a collection limit is reached
@@ -17,9 +19,9 @@ namespace NokLib
     [Serializable]
     public class LimitReachedException<T> : LimitReachedException
     {
-        public readonly T Limit;
-        public readonly T ActualValue;
-        public LimitReachedException(T limit, T actualValue, string message = null) :
+        public readonly T? Limit;
+        public readonly T? ActualValue;
+        public LimitReachedException(T limit, T actualValue, string? message = null) :
             base(message is null?
                 $"Value {actualValue} exceeds maximum limit {limit}" :
                 $"Value {actualValue} exceeds maximum limit {limit} ({message})")
@@ -27,6 +29,10 @@ namespace NokLib
             Limit = limit;
             ActualValue = actualValue;
         }
+
+        public LimitReachedException(string? message = null) : base(message) { }
+        public LimitReachedException(string? message, Exception inner) : base(message, inner) { }
+        public LimitReachedException() { }
     }
 
     /// <summary>
@@ -49,6 +55,8 @@ namespace NokLib
         /// </summary>
         /// <param name="unexpectedObject"></param>
         public UnexpectedObjectException(object unexpectedObject) : base($"Object {unexpectedObject} of type {unexpectedObject.GetType()} was not expected here") { }
+
+        public UnexpectedObjectException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 
     /// <summary>
@@ -71,6 +79,8 @@ namespace NokLib
         /// </summary>
         /// <param name="type">The unsupported type</param>
         public UnsupportedTypeException(Type type) : base($"Objects of type {type.FullName} are not supported") { }
+
+        public UnsupportedTypeException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 
     /// <summary>
@@ -88,6 +98,8 @@ namespace NokLib
         /// </summary>
         /// <param name="message">Cause of the exception</param>
         public InvalidHandleException(string message) : base(message) { }
+
+        public InvalidHandleException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 
     /// <summary>
@@ -105,6 +117,8 @@ namespace NokLib
         /// </summary>
         /// <param name="message">Cause of the exception</param>
         public InvalidSizeException(string message) : base(message) { }
+
+        public InvalidSizeException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 
     /// <summary>
@@ -123,6 +137,8 @@ namespace NokLib
         /// <param name="message">Cause of the exception</param>
         public TypeMismatchException(string message) : base(message) { }
         public TypeMismatchException(Type a, Type b, string reason) : base($"Type {a.Name} is {reason} {b.Name}") { }
+
+        public TypeMismatchException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 
     /// <summary>
@@ -141,6 +157,8 @@ namespace NokLib
         /// <param name="message">Cause of the exception</param>
         public SizeMismatchException(string message) : base(message) { }
         public SizeMismatchException(int sizeA, int sizeB) : base($"Object sizes do not match! {sizeA} != {sizeB}") { }
+
+        public SizeMismatchException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 
     /// <summary>
@@ -158,6 +176,8 @@ namespace NokLib
         /// </summary>
         /// <param name="message">Cause of the exception</param>
         public DuplicateObjectInCollectionException(string message) : base(message) { }
+
+        public DuplicateObjectInCollectionException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 
     /// <summary>
@@ -175,5 +195,7 @@ namespace NokLib
         /// </summary>
         /// <param name="message">Cause of the exception</param>
         public ConcurrencyException(string message) : base(message) { }
+
+        public ConcurrencyException(string? message, Exception? innerException) : base(message, innerException) { }
     }
 }

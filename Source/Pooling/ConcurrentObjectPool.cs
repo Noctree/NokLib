@@ -14,8 +14,8 @@ namespace NokLib.Pooling
         protected ConcurrentStack<T> stack;
         protected override int StackCount => stack.Count;
 
-        public ConcurrentObjectPool(Func<T> createObject = null, Action<T> onGet = null, Action<T> onRelease = null, Action<T> onDispose = null, int capacity = DEFAULT_MAX_CAPACITY, int initialAllocation = DEFAULT_INIT_ALLOCATION, bool collectionCheck = DEFAULT_COLLECTION_CHECK) : 
-            base(createObject, onGet, onRelease, onDispose, capacity, initialAllocation, collectionCheck)
+        public ConcurrentObjectPool(Action<T> onDispose, Func<T>? createObject = null, Action<T>? onGet = null, Action<T>? onRelease = null, int capacity = DEFAULT_MAX_CAPACITY, int initialAllocation = DEFAULT_INIT_ALLOCATION, bool collectionCheck = DEFAULT_COLLECTION_CHECK) :
+            base(onDispose, createObject, onGet, onRelease, capacity, initialAllocation, collectionCheck)
         {
             stack = new ConcurrentStack<T>();
         }
@@ -33,12 +33,12 @@ namespace NokLib.Pooling
         protected override void StackClear() => stack.Clear();
         protected override T StackPop()
         {
-            if (!stack.TryPop(out T obj)) {
+            if (!stack.TryPop(out T? obj)) {
                 throw new ConcurrencyException("Failed to retrieve object from the internal stack");
             }
             return obj;
         }
-        protected override bool StackTryPop(out T obj) => stack.TryPop(out obj);
+        protected override bool StackTryPop(out T? obj) => stack.TryPop(out obj);
         protected override void StackPush(T obj) => stack.Push(obj);
     }
 }

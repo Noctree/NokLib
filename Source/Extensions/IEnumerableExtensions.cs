@@ -36,10 +36,12 @@ namespace NokLib
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>
-        public static ValueTuple<T,T> MinMax<T>(this IEnumerable<T> collection) where T : IComparable<T>
+        public static ValueTuple<T,T> MinMax<T>(this IEnumerable<T> collection) where T : notnull, IComparable<T>
         {
+            if (collection.FirstOrDefault() is null)
+                return default;
             T min, max;
-            min = max = collection.FirstOrDefault();
+            min = max = collection.First();
             foreach (var item in collection) {
                 if (item.CompareTo(min) < 0)
                     min = item;
@@ -57,8 +59,10 @@ namespace NokLib
         /// <param name="compareFunction">Comparer function for the items in the collection, should follow the IComparable method (negative result = less, 0 = equal, positive result = greater)</param>
         public static ValueTuple<T,T> MinMax<T>(this IEnumerable<T> collection, Func<T, T, int> compareFunction)
         {
+            if (collection.FirstOrDefault() is null)
+                return default;
             T min, max;
-            min = max = collection.FirstOrDefault();
+            min = max = collection.First();
             foreach (var item in collection) {
                 if (compareFunction(item, min) < 0)
                     min = item;

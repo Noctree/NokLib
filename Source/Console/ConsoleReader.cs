@@ -22,28 +22,34 @@ namespace NokLib.ConsoleUtils
         public static decimal ReadDecimal(string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red) => ReadValue(DecimalParser.Instance, errorMessage, errorColor);
         public static double ReadDouble(string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red) => ReadValue(DoubleParser.Instance, errorMessage, errorColor);
         public static float ReadFloat(string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red) => ReadValue(FloatParser.Instance, errorMessage, errorColor);
-        public static T ReadValue<T>(IParser<T> parser, string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red)
+        public static T? ReadValue<T>(IParser<T> parser, string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red, bool allowEmpty = false, bool autoHideCursor = true)
         {
             string errorMsgErase = new string(' ', errorMessage.Length);
-            T result = default;
+            T? result = default;
             int cursorLeft = SysConsole.CursorLeft;
             int cursorTop = SysConsole.CursorTop;
-            bool failed = false;
-            while (!failed) {
-                string input = SysConsole.ReadLine();
-                failed = parser.TryParse(input, out result);
-                if (failed)
+            SysConsole.CursorVisible = true;
+            bool success = false;
+            while (!success)
+            {
+                string input = SysConsole.ReadLine() ?? string.Empty;
+                if (string.IsNullOrEmpty(input) && allowEmpty)
+                    break;
+                success = parser.TryParse(input, out result);
+                if (success)
                     break;
                 SysConsole.SetCursorPosition(cursorLeft, cursorTop);
                 SysConsole.Write(new string(' ', input.Length));
                 SysConsole.SetCursorPosition(cursorLeft, cursorTop);
                 ConsoleWriter.Write(errorMessage, errorColor);
-                SysConsole.ReadKey();
+                SysConsole.ReadKey(true);
 
                 SysConsole.SetCursorPosition(cursorLeft, cursorTop);
                 SysConsole.Write(errorMsgErase);
                 SysConsole.SetCursorPosition(cursorLeft, cursorTop);
             }
+            if (autoHideCursor)
+                SysConsole.CursorVisible = false;
             return result;
         }
     }

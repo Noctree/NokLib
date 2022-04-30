@@ -5,7 +5,7 @@ using System.Text;
 namespace NokLib
 {
     /// <summary>
-    /// Enables use of the 
+    /// Enables use of the
     /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
     /// </summary>
     public interface IDeconstructible<A>
@@ -17,7 +17,7 @@ namespace NokLib
     }
 
     /// <summary>
-    /// Enables use of the 
+    /// Enables use of the
     /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
     /// </summary>
     public interface IDeconstructible<A, B>
@@ -29,7 +29,7 @@ namespace NokLib
     }
 
     /// <summary>
-    /// Enables use of the 
+    /// Enables use of the
     /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
     /// </summary>
     public interface IDeconstructible<A, B, C>
@@ -41,7 +41,7 @@ namespace NokLib
     }
 
     /// <summary>
-    /// Enables use of the 
+    /// Enables use of the
     /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
     /// </summary>
     public interface IDeconstructible<A, B, C, D>
@@ -53,7 +53,7 @@ namespace NokLib
     }
 
     /// <summary>
-    /// Enables use of the 
+    /// Enables use of the
     /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
     /// </summary>
     public interface IDeconstructible<A, B, C, D, E>
@@ -65,7 +65,7 @@ namespace NokLib
     }
 
     /// <summary>
-    /// Enables use of the 
+    /// Enables use of the
     /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
     /// </summary>
     public interface IDeconstructible<A, B, C, D, E, F>
@@ -77,7 +77,7 @@ namespace NokLib
     }
 
     /// <summary>
-    /// Enables use of the 
+    /// Enables use of the
     /// <see href="https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/functional/deconstruct">tuple deconstruction syntax</see>
     /// </summary>
     public interface IDeconstructible<A, B, C, D, E, F, G>

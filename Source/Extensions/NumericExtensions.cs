@@ -12,19 +12,19 @@ namespace NokLib
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetDigitAtIndex(this int number, int index)
         {
-            return (int)((number / Math.Pow(10, (number.GetDigitCount() - index) - 1)) % 10);
+            return (int)((number / Math.Pow(10, number.GetDigitCount() - index - 1)) % 10);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetDigitAtIndex(this float number, int index)
         {
-            return (int)((number / Math.Pow(10, (number.GetDigitCount() - index) - 1)) % 10);
+            return (int)((number / Math.Pow(10, number.GetDigitCount() - index - 1)) % 10);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetDigitAtIndex(this double number, int index)
         {
-            return (int)((number / Math.Pow(10, (number.GetDigitCount() - index) - 1)) % 10);
+            return (int)((number / Math.Pow(10, number.GetDigitCount() - index - 1)) % 10);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

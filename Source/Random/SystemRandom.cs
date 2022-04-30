@@ -12,7 +12,7 @@ namespace NokLib {
     public class SystemRandom : IRandomProvider
     {
         private static bool failedGetGenerateSeedMethod;
-        private static Func<int> SysRandGenSeedMethodDelegate = null;
+        private static Func<int>? SysRandGenSeedMethodDelegate = null;
         protected Random Random;
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace NokLib {
             if (failedGetGenerateSeedMethod)
                 return 0;
             if (SysRandGenSeedMethodDelegate is null) {
-                MethodInfo methodInfo = typeof(System.Random).GetMethod("GenerateSeed", BindingFlags.Static | BindingFlags.NonPublic);
+                MethodInfo? methodInfo = typeof(System.Random).GetMethod("GenerateSeed", BindingFlags.Static | BindingFlags.NonPublic);
                 if (methodInfo is null)
                 {
                     failedGetGenerateSeedMethod = true;
@@ -63,7 +63,9 @@ namespace NokLib {
                 SeedKnown = false;
             }
             else
+            {
                 Random = new Random((int)Seed);
+            }
         }
         public void SetSeed(long seed)
         {
@@ -87,6 +89,5 @@ namespace NokLib {
         public int NextInt(int min, int max) => Random.Next(min, max);
 
         public double Percentage() => Random.NextDouble();
-
     }
 }

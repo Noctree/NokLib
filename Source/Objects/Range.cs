@@ -60,7 +60,7 @@ namespace NokLib
             return interpolationFunc(Min, Max, time);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is Range<T> range &&
                    EqualityComparer<T>.Default.Equals(Min, range.Min) &&
@@ -138,15 +138,15 @@ namespace NokLib
             return interpolationFunc(Min, Max, time);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is ComparableRange<T> range &&
                    EqualityComparer<T>.Default.Equals(Min, range.Min) &&
                    EqualityComparer<T>.Default.Equals(Max, range.Max);
         }
-        public bool Equals(IComparableRange<T> other)
+        public bool Equals(IComparableRange<T>? other)
         {
-            return this.Min.CompareTo(other.Min) == 0 && this.Max.CompareTo(other.Max) == 0;
+            return other is not null && this.Min.CompareTo(other.Min) == 0 && this.Max.CompareTo(other.Max) == 0;
         }
 
         public override int GetHashCode()
@@ -251,16 +251,16 @@ namespace NokLib
             return interpolationFunc(Min, Max, time);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is IntRange range &&
                    Min == range.Min &&
                    Max == range.Max;
         }
 
-        public bool Equals(IComparableRange<int> other)
+        public bool Equals(IComparableRange<int>? other)
         {
-            return this.Min == other.Min && this.Max == other.Max;
+            return other is not null && this.Min == other.Min && this.Max == other.Max;
         }
 
         public override int GetHashCode()
@@ -295,7 +295,6 @@ namespace NokLib
             return new IntRange(vector);
         }
 #endif
-
 
         public static implicit operator Range<int>(IntRange range)
         {
@@ -388,16 +387,16 @@ namespace NokLib
             return interpolationFunc(Min, Max, time);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is FloatRange range &&
                    Min == range.Min &&
                    Max == range.Max;
         }
 
-        public bool Equals(IComparableRange<float> range)
+        public bool Equals(IComparableRange<float>? range)
         {
-            return Min.AlmostEquals(range.Min) && Max.AlmostEquals(range.Max);
+            return range is not null && Min.AlmostEquals(range.Min) && Max.AlmostEquals(range.Max);
         }
 
         public override int GetHashCode()

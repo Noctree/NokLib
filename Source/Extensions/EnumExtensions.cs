@@ -13,6 +13,7 @@ namespace NokLib
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="val"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ToStringNonAlloc<T>(this T val) where T : Enum
         {
             return EnumStringifier.ToString(val);
@@ -24,7 +25,7 @@ namespace NokLib
         /// <typeparam name="T">enum which values should be converted</typeparam>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T[] GetValues<T>(this T _) where T : Enum
+        public static T[]? GetValues<T>(this T _) where T : Enum
         {
             return Enum.GetValues(typeof(T)) as T[];
         }

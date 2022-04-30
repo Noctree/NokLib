@@ -12,9 +12,9 @@ namespace NokLib.Pooling
         protected const int DEFAULT_MAX_CAPACITY = 32;
         protected const int DEFAULT_INIT_ALLOCATION = 0;
         protected const bool DEFAULT_COLLECTION_CHECK = true;
-        protected Func<T> createFunc;
-        protected Action<T> onGetFunc;
-        protected Action<T> onReleaseFunc;
+        protected Func<T>? createFunc;
+        protected Action<T>? onGetFunc;
+        protected Action<T>? onReleaseFunc;
         protected Action<T> onDisposeFunc;
         private bool disposedValue;
 
@@ -28,14 +28,14 @@ namespace NokLib.Pooling
         /// <summary>
         /// Create a new ObjectPool
         /// </summary>
+        /// <param name="onDispose">Used for disposal of the object</param>
         /// <param name="createObject">Function for allocating new objects, if not specified new instances will be created using the Activator.CreateInstance method</param>
         /// <param name="onGet">Gets called when an object is rented</param>
         /// <param name="onRelease">Gets called when an object is released</param>
-        /// <param name="onDispose">Used for disposal of the object</param>
         /// <param name="capacity">The maximum allowed capacity of the pool</param>
         /// <param name="initialAllocation">How many objects to preallocate whent the pool is created</param>
         /// <param name="doDuplicateCheck">Prevents an object from being returned twice</param>
-        protected ObjectPoolBase(Func<T> createObject = null, Action<T> onGet = null, Action<T> onRelease = null, Action<T> onDispose = null, int capacity = DEFAULT_MAX_CAPACITY, int initialAllocation = DEFAULT_INIT_ALLOCATION, bool doDuplicateCheck = DEFAULT_COLLECTION_CHECK)
+        protected ObjectPoolBase(Action<T> onDispose, Func<T>? createObject = null, Action<T>? onGet = null, Action<T>? onRelease = null, int capacity = DEFAULT_MAX_CAPACITY, int initialAllocation = DEFAULT_INIT_ALLOCATION, bool doDuplicateCheck = DEFAULT_COLLECTION_CHECK)
         {
             initialAllocation = initialAllocation > capacity ? capacity : initialAllocation;
             Capacity = capacity;
@@ -86,7 +86,7 @@ namespace NokLib.Pooling
         /// </summary>
         /// <param name="obj"></param>
         /// <returns>False if a new instance needs to be allocated, but pools capacity has been reached. Otherwise returns true</returns>
-        public bool TryGet(out T obj)
+        public bool TryGet(out T? obj)
         {
             obj = null;
             if (AvailableObjects == 0) {
@@ -101,10 +101,12 @@ namespace NokLib.Pooling
         /// Try to get a pooled instance of the object wrapped in PooledObject, use with the 'using' keyword for the object to be automatically released
         /// </summary>
         /// <returns></returns>
-        public bool TrySafeGet(out PooledObject<T> wrappedObj)
+        public bool TrySafeGet(out PooledObject<T>? wrappedObj)
         {
             wrappedObj = null;
-            if (!TryGet(out T obj))
+            if (!TryGet(out T? obj))
+                return false;
+            if (obj is null)
                 return false;
             wrappedObj = new PooledObject<T>(obj, this);
             return true;
@@ -128,13 +130,8 @@ namespace NokLib.Pooling
         public void Clear()
         {
             bool isDisposable = typeof(T) is IDisposable;
-            var stackEnumerator = StackAsEnumerable();
-            if (onDisposeFunc != null)
-                foreach (var item in stackEnumerator)
-                    onDisposeFunc(item);
-            else if (isDisposable)
-                foreach (var item in stackEnumerator)
-                    (item as IDisposable).Dispose();
+            foreach (var item in StackAsEnumerable())
+                onDisposeFunc(item);
             StackClear();
             Allocated = 0;
         }
@@ -162,7 +159,7 @@ namespace NokLib.Pooling
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        protected abstract bool StackTryPop(out T obj);
+        protected abstract bool StackTryPop(out T? obj);
         /// <summary>
         /// Clear the internal stack
         /// </summary>
@@ -186,7 +183,9 @@ namespace NokLib.Pooling
                 createFunc = null;
                 onGetFunc = null;
                 onReleaseFunc = null;
+#nullable disable
                 onDisposeFunc = null;
+#nullable enable
                 disposedValue = true;
             }
         }
