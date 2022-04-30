@@ -22,7 +22,7 @@ namespace NokLib
 
         public static void StaticWrite(this Stream stream, string str) => stream.StaticWrite(str.ToAsciiByteArray());
 
-        public static void StaticWrite(this Stream stream, object obj) => stream.StaticWrite(obj is null? Constants.NULL : (obj.ToString() ?? Constants.NULL));
+        public static void StaticWrite(this Stream stream, object obj) => stream.StaticWrite(obj.SafeToString());
 
         public static void Write(this Stream stream, string str)
         {
@@ -32,6 +32,6 @@ namespace NokLib
                 throw new NotSupportedException("Stream must be writable");
         }
 
-        public static void Write(this Stream stream, object obj) => stream.Write(obj is null? Constants.NULL : (obj.ToString() ?? Constants.NULL));
+        public static void Write(this Stream stream, object obj) => stream.Write(obj.SafeToString());
     }
 }

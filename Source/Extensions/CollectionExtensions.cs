@@ -46,7 +46,7 @@ namespace NokLib
             var sb = StringBuilderPool.Get();
             sb.Append('(');
             foreach (var item in collection) {
-                sb.Append(item.ToString());
+                sb.Append(item.SafeToString());
                 sb.Append(separator);
             }
             sb.Remove(sb.Length - 2, 2);
