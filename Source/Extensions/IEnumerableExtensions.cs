@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -70,6 +71,59 @@ namespace NokLib
                     max = item;
             }
             return new ValueTuple<T, T>(min, max);
+        }
+
+        /// <summary>
+        /// Formats the output of the enumerable into a string
+        /// </summary>
+        /// <param name="collection"></param>
+        public static string FormatToString<T>(this IEnumerable<T> collection, Func<T, string>? customFormatter = null) {
+            if (customFormatter is null)
+                return FormatToString((IEnumerable)collection);
+
+            const string separator = ", ";
+            var sb = StringBuilderPool.Get();
+            sb.Append('(');
+            foreach (var item in collection) {
+                sb.Append(customFormatter(item));
+                sb.Append(separator);
+            }
+            sb.Remove(sb.Length - 2, 2);
+            sb.Append(')');
+            string result = sb.ToString();
+            StringBuilderPool.Release(sb);
+            return result;
+        }
+
+        /// <summary>
+        /// Formats the output of the enumerable into a string
+        /// </summary>
+        /// <param name="collection"></param>
+        public static string FormatToString(this IEnumerable collection) {
+            const string separator = ", ";
+            var sb = StringBuilderPool.Get();
+            sb.Append('(');
+            foreach (var item in collection) {
+                sb.Append(item.SafeToString());
+                sb.Append(separator);
+            }
+            sb.Remove(sb.Length - 2, 2);
+            sb.Append(')');
+            string result = sb.ToString();
+            StringBuilderPool.Release(sb);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs the specified action on all elements of the enumerable. DOES NOT MODIFY THE ENUMERABLE.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        /// <param name="action"></param>
+        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> collection, Action<T> action) {
+            foreach (T obj in collection)
+                action(obj);
+            return collection;
         }
     }
 }
