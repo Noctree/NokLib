@@ -22,7 +22,7 @@ namespace NokLib.ConsoleUtils
         public static decimal ReadDecimal(string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red) => ReadValue(DecimalParser.Instance, errorMessage, errorColor);
         public static double ReadDouble(string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red) => ReadValue(DoubleParser.Instance, errorMessage, errorColor);
         public static float ReadFloat(string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red) => ReadValue(FloatParser.Instance, errorMessage, errorColor);
-        public static T? ReadValue<T>(IParser<T> parser, string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red, bool allowEmpty = false, bool autoHideCursor = true)
+        public static T ReadValue<T>(IParser<T> parser, string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red, bool allowEmpty = false, bool autoHideCursor = true)
         {
             string errorMsgErase = new string(' ', errorMessage.Length);
             T? result = default;
@@ -39,7 +39,8 @@ namespace NokLib.ConsoleUtils
                 if (success)
                     break;
                 SysConsole.SetCursorPosition(cursorLeft, cursorTop);
-                SysConsole.Write(new string(' ', input.Length));
+                for (int i = 0; i < input.Length; ++i)
+                    SysConsole.Write(' ');
                 SysConsole.SetCursorPosition(cursorLeft, cursorTop);
                 ConsoleWriter.Write(errorMessage, errorColor);
                 SysConsole.ReadKey(true);
@@ -50,7 +51,7 @@ namespace NokLib.ConsoleUtils
             }
             if (autoHideCursor)
                 SysConsole.CursorVisible = false;
-            return result;
+            return result!;
         }
     }
 }
