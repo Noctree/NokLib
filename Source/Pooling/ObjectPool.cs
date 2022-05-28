@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NokLib.Pooling
+namespace NokLib
 {
     /// <summary>
     /// A generic, stack-based object pool

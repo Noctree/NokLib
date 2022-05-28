@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NokLib.Pooling
+namespace NokLib
 {
     public interface IObjectPool<T> : IDisposable where T : class
     {

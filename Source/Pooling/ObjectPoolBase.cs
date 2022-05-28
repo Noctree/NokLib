@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NokLib.Pooling
+namespace NokLib
 {
     public abstract class ObjectPoolBase<T> : IObjectPool<T> where T : class
     {
