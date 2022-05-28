@@ -41,7 +41,7 @@ namespace NokLib
             return Average;
         }
 
-        public double AddRange(ICollection<double> next)
+        public double AddRange(IEnumerable<double> next)
         {
             foreach (var item in next)
                 Add(item);

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NokLib.Pooling
+namespace NokLib
 {
     public static class StringBuilderPool
     {

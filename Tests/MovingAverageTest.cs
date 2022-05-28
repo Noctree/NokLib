@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using NokLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -63,13 +65,27 @@ namespace Tests
         }
 
         [TestMethod]
-        public void MovingAverage()
+        public void AddRangeAndAdd()
         {
             var average = new MovingAverage(5);
             average.AddRange(new double[] { 1, 2, 3, 4, 5 });
             Assert.AreEqual(3, average.Average);
             average.Add(6);
             Assert.AreEqual(4, average.Average);
+        }
+
+        [TestMethod]
+        public void RandomValuesTestAddRange()
+        {
+            var rng = new SystemRandom(123);
+            var values = new List<int>();
+            for (int i = 0; i < 100; i++)
+                values.Add(rng.NextInt(0, 1000));
+            var linQAvg = values.Average();
+            MovingAverage calculator = new MovingAverage(5);
+            var calculatorAverage = calculator.AddRange(values.Cast<double>());
+            Assert.AreEqual(linQAvg, calculatorAverage);
+            Assert.AreEqual(calculatorAverage, calculator.Average);
         }
     }
 }
