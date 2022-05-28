@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using SysConsole = System.Console;
 
 namespace NokLib.ConsoleUtils
@@ -12,8 +10,7 @@ namespace NokLib.ConsoleUtils
     {
         public static void WriteLine() => SysConsole.WriteLine();
         public static void WriteLine<T>(T value) => SysConsole.WriteLine(value.SafeToString());
-        public static void WriteLine<T>(T value, ConsoleColor foreground)
-        {
+        public static void WriteLine<T>(T value, ConsoleColor foreground) {
             var color = SysConsole.ForegroundColor;
             SysConsole.ForegroundColor = foreground;
 
@@ -21,8 +18,7 @@ namespace NokLib.ConsoleUtils
 
             SysConsole.ForegroundColor = color;
         }
-        public static void WriteLine<T>(T value, ConsoleColor foreground, ConsoleColor background)
-        {
+        public static void WriteLine<T>(T value, ConsoleColor foreground, ConsoleColor background) {
             var foreColor = SysConsole.ForegroundColor;
             var backColor = SysConsole.BackgroundColor;
             SysConsole.ForegroundColor = foreground;
@@ -34,8 +30,7 @@ namespace NokLib.ConsoleUtils
             SysConsole.BackgroundColor = backColor;
         }
         public static void Write<T>(T value) => SysConsole.Write(value.SafeToString());
-        public static void Write<T>(T value, ConsoleColor foreground)
-        {
+        public static void Write<T>(T value, ConsoleColor foreground) {
             var color = SysConsole.ForegroundColor;
             SysConsole.ForegroundColor = foreground;
 
@@ -43,8 +38,7 @@ namespace NokLib.ConsoleUtils
 
             SysConsole.ForegroundColor = color;
         }
-        public static void Write<T>(T value, ConsoleColor foreground, ConsoleColor background)
-        {
+        public static void Write<T>(T value, ConsoleColor foreground, ConsoleColor background) {
             var foreColor = SysConsole.ForegroundColor;
             var backColor = SysConsole.BackgroundColor;
             SysConsole.ForegroundColor = foreground;

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NokLib.Parsers
 {
@@ -13,15 +11,13 @@ namespace NokLib.Parsers
         /// Global instance of IntParser
         /// </summary>
         public static readonly FastUIntParser Instance = new FastUIntParser();
-        public uint Parse(string input)
-        {
+        public uint Parse(string input) {
             if (TryParse(input, out var result))
                 return result;
             else
                 throw new FormatException();
         }
-        public bool TryParse(string input, out uint result)
-        {
+        public bool TryParse(string input, out uint result) {
             var op_result = NumberParser.TryParseNumber(input.AsSpan(), uint.MaxValue, out ulong result_raw);
             result = (uint)result_raw;
             return op_result;

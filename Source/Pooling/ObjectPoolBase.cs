@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokLib
 {
@@ -33,8 +29,7 @@ namespace NokLib
         /// <param name="onRelease">Gets called when an object is released</param>
         /// <param name="capacity">The maximum allowed capacity of the pool</param>
         /// <param name="doDuplicateCheck">Prevents an object from being returned twice</param>
-        protected ObjectPoolBase(Action<T> onDispose, Func<T>? createObject = null, Action<T>? onGet = null, Action<T>? onRelease = null, int capacity = DEFAULT_MAX_CAPACITY, bool doDuplicateCheck = DEFAULT_COLLECTION_CHECK)
-        {
+        protected ObjectPoolBase(Action<T> onDispose, Func<T>? createObject = null, Action<T>? onGet = null, Action<T>? onRelease = null, int capacity = DEFAULT_MAX_CAPACITY, bool doDuplicateCheck = DEFAULT_COLLECTION_CHECK) {
             Capacity = capacity;
             createFunc = createObject;
             onGetFunc = onGet;
@@ -53,8 +48,7 @@ namespace NokLib
                 AllocateNew();
         }
 
-        private void AllocateNew()
-        {
+        private void AllocateNew() {
             if (Allocated == Capacity)
                 throw new LimitReachedException($"ObjectPool has reached its allocation capacity of {typeof(T).Name}");
 
@@ -69,8 +63,7 @@ namespace NokLib
         /// Get a pooled instance of the object, if no allocated instance is available, a new instance is allocated. If there are no allocated instances left and the pools capacity has been reached, a LimitReachedException is thrown
         /// </summary>
         /// <returns>The instanced object</returns>
-        public T Get()
-        {
+        public T Get() {
             if (AvailableObjects == 0)
                 AllocateNew();
 
@@ -90,8 +83,7 @@ namespace NokLib
         /// </summary>
         /// <param name="obj"></param>
         /// <returns>False if a new instance needs to be allocated, but pools capacity has been reached. Otherwise returns true</returns>
-        public bool TryGet(out T? obj)
-        {
+        public bool TryGet(out T? obj) {
             obj = null;
             if (AvailableObjects == 0) {
                 if (Allocated == Capacity)
@@ -105,8 +97,7 @@ namespace NokLib
         /// Try to get a pooled instance of the object wrapped in PooledObject, use with the 'using' keyword for the object to be automatically released
         /// </summary>
         /// <returns></returns>
-        public bool TrySafeGet(out PooledObject<T>? wrappedObj)
-        {
+        public bool TrySafeGet(out PooledObject<T>? wrappedObj) {
             wrappedObj = null;
             if (!TryGet(out T? obj))
                 return false;
@@ -120,8 +111,7 @@ namespace NokLib
         /// Releases the object back to the pool, if DuplicateChecking is enabled and the object has already been released a DuplicateObjectInCollectionException is thrown
         /// </summary>
         /// <param name="obj">The object to be released</param>
-        public void Release(T obj)
-        {
+        public void Release(T obj) {
             if (DoDulicateCheck && HasBeenReturned(obj))
                 throw new DuplicateObjectInCollectionException("This object has already been released");
             onReleaseFunc?.Invoke(obj);
@@ -131,8 +121,7 @@ namespace NokLib
         /// <summary>
         /// Calls the OnDispose method (if specified) for each allocated object and clears the pool. If no OnDispose method was specified and the item type stored in this pool implements IDisposable interface the objects Dispose method is called instead
         /// </summary>
-        public void Clear()
-        {
+        public void Clear() {
             bool isDisposable = typeof(T) is IDisposable;
             foreach (var item in StackAsEnumerable())
                 onDisposeFunc(item);
@@ -174,8 +163,7 @@ namespace NokLib
         /// <returns></returns>
         protected abstract IEnumerable<T> StackAsEnumerable();
 
-        protected virtual void Dispose(bool disposing)
-        {
+        protected virtual void Dispose(bool disposing) {
             if (!disposedValue) {
                 if (disposing) {
                     // TODO: dispose managed state (managed objects)
@@ -194,8 +182,7 @@ namespace NokLib
             }
         }
 
-        public void Dispose()
-        {
+        public void Dispose() {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);

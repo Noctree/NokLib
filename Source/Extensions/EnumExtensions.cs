@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace NokLib
 {
@@ -14,8 +11,7 @@ namespace NokLib
         /// <typeparam name="T"></typeparam>
         /// <param name="val"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string ToStringNonAlloc<T>(this T val) where T : Enum
-        {
+        public static string ToStringNonAlloc<T>(this T val) where T : Enum {
             return EnumStringifier.ToString(val);
         }
 
@@ -25,8 +21,7 @@ namespace NokLib
         /// <typeparam name="T">enum which values should be converted</typeparam>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T[]? GetValues<T>(this T _) where T : Enum
-        {
+        public static T[]? GetValues<T>(this T _) where T : Enum {
             return Enum.GetValues(typeof(T)) as T[];
         }
 
@@ -37,8 +32,7 @@ namespace NokLib
         /// <param name="_enum"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string[] GetNames<T>(this T _enum) where T : Enum
-        {
+        public static string[] GetNames<T>(this T _enum) where T : Enum {
             return Enum.GetNames(_enum.GetType());
         }
     }

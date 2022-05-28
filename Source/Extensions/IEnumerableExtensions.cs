@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokLib
 {
@@ -14,8 +12,7 @@ namespace NokLib
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>
-        public static void DisposeObjects<T>(this IEnumerable<T> collection) where T : IDisposable
-        {
+        public static void DisposeObjects<T>(this IEnumerable<T> collection) where T : IDisposable {
             foreach (var item in collection)
                 item.Dispose();
         }
@@ -26,8 +23,7 @@ namespace NokLib
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>
         /// <param name="disposeFunction"></param>
-        public static void DisposeObjectsWith<T>(this IEnumerable<T> collection, Action<T> disposeFunction)
-        {
+        public static void DisposeObjectsWith<T>(this IEnumerable<T> collection, Action<T> disposeFunction) {
             foreach (var item in collection)
                 disposeFunction(item);
         }
@@ -37,8 +33,7 @@ namespace NokLib
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>
-        public static ValueTuple<T,T> MinMax<T>(this IEnumerable<T> collection) where T : notnull, IComparable<T>
-        {
+        public static ValueTuple<T, T> MinMax<T>(this IEnumerable<T> collection) where T : notnull, IComparable<T> {
             if (collection.FirstOrDefault() is null)
                 return default;
             T min, max;
@@ -49,7 +44,7 @@ namespace NokLib
                 else if (item.CompareTo(max) > 0)
                     max = item;
             }
-            return new ValueTuple<T,T>(min, max);
+            return new ValueTuple<T, T>(min, max);
         }
 
         /// <summary>
@@ -58,8 +53,7 @@ namespace NokLib
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>
         /// <param name="compareFunction">Comparer function for the items in the collection, should follow the IComparable method (negative result = less, 0 = equal, positive result = greater)</param>
-        public static ValueTuple<T,T> MinMax<T>(this IEnumerable<T> collection, Func<T, T, int> compareFunction)
-        {
+        public static ValueTuple<T, T> MinMax<T>(this IEnumerable<T> collection, Func<T, T, int> compareFunction) {
             if (collection.FirstOrDefault() is null)
                 return default;
             T min, max;

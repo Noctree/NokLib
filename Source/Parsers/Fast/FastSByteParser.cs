@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NokLib.Parsers
 {
@@ -9,15 +7,13 @@ namespace NokLib.Parsers
         private const byte MinSByteValue = 128;
         public static readonly FastSByteParser Instance = new FastSByteParser();
 
-        public sbyte Parse(string input)
-        {
+        public sbyte Parse(string input) {
             if (TryParse(input, out var result))
                 return result;
             else
                 throw new FormatException();
         }
-        public bool TryParse(string input, out sbyte result)
-        {
+        public bool TryParse(string input, out sbyte result) {
             result = 0;
             if (string.IsNullOrEmpty(input) || input.Length > 4)
                 return false;

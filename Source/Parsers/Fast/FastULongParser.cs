@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NokLib.Parsers
 {
@@ -8,8 +6,7 @@ namespace NokLib.Parsers
     {
         public static readonly FastULongParser Instance = new FastULongParser();
 
-        public ulong Parse(string input)
-        {
+        public ulong Parse(string input) {
             if (TryParse(input, out var result))
                 return result;
             else

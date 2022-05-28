@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokLib
 {
@@ -17,8 +15,7 @@ namespace NokLib
         ///</summary>
         ///<typeparam name="T">Parent type</typeparam>
         /// <returns>A list of all types deriving from type T</returns>
-        public static List<Type> GetAllDerivedTypesOfType<T>()
-        {
+        public static List<Type> GetAllDerivedTypesOfType<T>() {
             return GetAllDerivedTypesOfType(typeof(T));
         }
 
@@ -27,8 +24,7 @@ namespace NokLib
         ///</summary>
         ///<typeparam name="T">Parent type</typeparam>
         /// <returns>A list of all public types deriving from type T that are publicly visible</returns>
-        public static List<Type> GetAllPublicDerivedTypesOfType<T>()
-        {
+        public static List<Type> GetAllPublicDerivedTypesOfType<T>() {
             return GetAllPublicDerivedTypesOfType(typeof(T));
         }
 
@@ -37,8 +33,7 @@ namespace NokLib
         ///</summary>
         ///<param name="type">Parent type</param>
         /// <returns>A list of all types deriving from type T that are publicly visible</returns>
-        public static List<Type> GetAllDerivedTypesOfType(Type type)
-        {
+        public static List<Type> GetAllDerivedTypesOfType(Type type) {
             return (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
                     from assemblyType in domainAssembly.GetTypes()
                     where type.IsAssignableFrom(assemblyType) && assemblyType != type && !assemblyType.IsAbstract
@@ -50,8 +45,7 @@ namespace NokLib
         ///</summary>
         ///<param name="type">Parent type</param>
         /// <returns>A list of all types deriving from type T that are publicly visible</returns>
-        public static List<Type> GetAllPublicDerivedTypesOfType(Type type)
-        {
+        public static List<Type> GetAllPublicDerivedTypesOfType(Type type) {
             return (from domainAssembly in AppDomain.CurrentDomain.GetAssemblies()
                     from assemblyType in domainAssembly.GetExportedTypes()
                     where type.IsAssignableFrom(assemblyType) && assemblyType != type && !assemblyType.IsAbstract
@@ -70,8 +64,7 @@ namespace NokLib
         ///</summary>
         ///<param name="type">Type to scan</param>
         /// <returns>A FieldInfo array of all constants found in the provided type</returns>
-        public static FieldInfo[] GetConstantsFrom(Type type)
-        {
+        public static FieldInfo[] GetConstantsFrom(Type type) {
             List<FieldInfo> constants = new List<FieldInfo>();
             var fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
             for (int i = 0; i < fieldInfos.Length; i++) {
@@ -96,8 +89,7 @@ namespace NokLib
         /// <param name="sourceType">Type to be scanned</param>
         /// <param name="constantType">Type of constants to return</param>
         /// <returns>A FieldInfo array of all constants of specified type found in the source type</returns>
-        public static FieldInfo[] GetConstantsOfTypeFrom(Type sourceType, Type constantType)
-        {
+        public static FieldInfo[] GetConstantsOfTypeFrom(Type sourceType, Type constantType) {
             List<FieldInfo> constants = new List<FieldInfo>();
             var fieldInfos = sourceType.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
             for (int i = 0; i < fieldInfos.Length; i++) {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace NokLib
 {
@@ -16,8 +12,7 @@ namespace NokLib
 
         private static readonly IObjectPool<StringBuilder> ObjectPool = new ConcurrentObjectPool<StringBuilder>(OnRelease, Create, OnGet, null);
         private static StringBuilder Create() => new StringBuilder();
-        private static void OnRelease(StringBuilder sb)
-        {
+        private static void OnRelease(StringBuilder sb) {
             if (sb.Length > StrigBuilderLengthDeallocationThreshold) {
                 sb.Length = 0;
                 sb.Capacity = 0;
@@ -25,8 +20,7 @@ namespace NokLib
             sb.Clear();
         }
 
-        private static void OnGet(StringBuilder sb)
-        {
+        private static void OnGet(StringBuilder sb) {
             if (sb.Capacity == 0) {
                 sb.Length = STRINGBUILDER_DEFAULT_CAPACITY;
                 sb.Capacity = STRINGBUILDER_DEFAULT_CAPACITY;

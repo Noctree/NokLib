@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokLib
 {
@@ -14,8 +10,7 @@ namespace NokLib
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>
-        public static void DisposeObjects<T>(this ICollection<T> collection) where T : IDisposable
-        {
+        public static void DisposeObjects<T>(this ICollection<T> collection) where T : IDisposable {
             foreach (var obj in collection)
                 obj.Dispose();
             collection.Clear();
@@ -27,8 +22,7 @@ namespace NokLib
         /// <typeparam name="T"></typeparam>
         /// <param name="collection"></param>
         /// <param name="disposeFunction"></param>
-        public static void DisposeWith<T>(this ICollection<T> collection, Action<T> disposeFunction)
-        {
+        public static void DisposeWith<T>(this ICollection<T> collection, Action<T> disposeFunction) {
             foreach (var item in collection)
                 disposeFunction(item);
             collection.Clear();

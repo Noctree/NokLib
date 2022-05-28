@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokLib
 {
@@ -21,8 +18,7 @@ namespace NokLib
 
         public bool IsReadOnly => false;
 
-        public RingBuffer(int size)
-        {
+        public RingBuffer(int size) {
             buffer = new T[size];
         }
 
@@ -43,14 +39,12 @@ namespace NokLib
             }
         }
 
-        public void Add(T? value)
-        {
+        public void Add(T? value) {
             buffer[index] = value;
             index = (index + 1) % Size;
         }
 
-        public void AddRange(ICollection<T?> collection)
-        {
+        public void AddRange(ICollection<T?> collection) {
             foreach (var item in collection)
                 Add(item);
         }
@@ -59,24 +53,21 @@ namespace NokLib
 
         IEnumerator IEnumerable.GetEnumerator() => Enumerate().GetEnumerator();
 
-        private IEnumerable<T?> Enumerate()
-        {
+        private IEnumerable<T?> Enumerate() {
             int size = Size;
             for (int i = 0; i < size; i++) {
                 yield return buffer[(index + i) % size];
             }
         }
 
-        public void Clear()
-        {
+        public void Clear() {
             for (int i = 0; i < buffer.Length; i++) {
                 buffer[i] = default;
             }
             index = 0;
         }
 
-        public bool Contains(T? item)
-        {
+        public bool Contains(T? item) {
             for (int i = 0; i < buffer.Length; i++) {
                 var value = buffer[i];
                 if (value != null && value.Equals(item))
@@ -85,8 +76,7 @@ namespace NokLib
             return false;
         }
 
-        public void CopyTo(T?[] array, int arrayIndex)
-        {
+        public void CopyTo(T?[] array, int arrayIndex) {
             if (array is null)
                 throw new ArgumentNullException(nameof(array));
             if (arrayIndex < 0 || arrayIndex >= array.Length)
@@ -97,8 +87,7 @@ namespace NokLib
             }
         }
 
-        public bool Remove(T? item)
-        {
+        public bool Remove(T? item) {
             throw new NotSupportedException("Removal of items from " + nameof(RingBuffer<T>) + " is not supported");
         }
     }

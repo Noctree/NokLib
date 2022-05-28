@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokLib
 {
@@ -24,8 +20,7 @@ namespace NokLib
         /// Creates new StreamScanner for the specified stream
         /// </summary>
         /// <param name="inputStream">The stream the scanner will use, must support reading</param>
-        public StreamScanner(Stream inputStream)
-        {
+        public StreamScanner(Stream inputStream) {
             if (!inputStream.CanRead)
                 throw new ArgumentException($"{nameof(inputStream)} must be readable");
             reader = new StreamReader(inputStream);
@@ -41,8 +36,7 @@ namespace NokLib
         /// Reads the stream until EoF, or newline character
         /// </summary>
         /// <returns></returns>
-        public string ReadLine()
-        {
+        public string ReadLine() {
             return reader.ReadLine() ?? String.Empty;
         }
 
@@ -52,10 +46,9 @@ namespace NokLib
         /// <returns></returns>
         /// <exception cref="EndOfStreamException"></exception>
         /// <exception cref="IOException"></exception>
-        public char Read()
-        {
+        public char Read() {
             int result = reader.Read();
-            return result == -1? ThrowStreamError() : (char)result;
+            return result == -1 ? ThrowStreamError() : (char)result;
         }
 
         /// <summary>
@@ -63,8 +56,7 @@ namespace NokLib
         /// </summary>
         /// <param name="character"></param>
         /// <returns>Returns true if the read was successful</returns>
-        public bool TryRead(out char character)
-        {
+        public bool TryRead(out char character) {
             int result = reader.Read();
             character = (char)result;
             return result != -1;
@@ -74,8 +66,7 @@ namespace NokLib
         /// Reads next integer from the stream
         /// </summary>
         /// <returns></returns>
-        public int ReadInt()
-        {
+        public int ReadInt() {
             bool negative = false;
             if (reader.Peek() == '-') {
                 negative = true;
@@ -89,8 +80,7 @@ namespace NokLib
         /// Reads next long from the stream
         /// </summary>
         /// <returns></returns>
-        public long ReadLong()
-        {
+        public long ReadLong() {
             bool negative = false;
             if (reader.Peek() == '-') {
                 negative = true;
@@ -105,8 +95,7 @@ namespace NokLib
         /// </summary>
         /// <param name="delimiters">Valid delimiters used for decimal place</param>
         /// <returns></returns>
-        public double ReadDouble(string delimiters = NUMBER_DELIMITERS)
-        {
+        public double ReadDouble(string delimiters = NUMBER_DELIMITERS) {
             long major = 0, minor = 0;
             bool negative = false;
             if (reader.Peek() == '-') {
@@ -133,39 +122,34 @@ namespace NokLib
             return negative ? -result : result;
         }
 
-        private long InternalNumberRead(long maxNumber)
-        {
+        private long InternalNumberRead(long maxNumber) {
             long maxNumberRounded = maxNumber - (maxNumber % 10);
             byte maxLastDigit = (byte)(maxNumber % 10);
             long result = 0;
             while (!reader.EndOfStream && char.IsDigit((char)reader.Peek())) {
                 result *= 10;
-                if (result == maxNumberRounded)
-                {
+                if (result == maxNumberRounded) {
                     int lastDigit = Read() - '0';
                     if (lastDigit > maxLastDigit)
                         return result / 10;
                     else
                         return result + lastDigit;
                 }
-                else
-                {
+                else {
                     result += Read() - '0';
                 }
             }
             return result;
         }
 
-        private char ThrowStreamError()
-        {
+        private char ThrowStreamError() {
             if (reader.EndOfStream)
                 throw new EndOfStreamException();
             else
                 throw new IOException("Failed to read the stream for unknown reason");
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
+        protected virtual void Dispose(bool disposing) {
             if (!disposedValue) {
                 if (disposing) {
                     // TODO: dispose managed state (managed objects)
@@ -188,8 +172,7 @@ namespace NokLib
         /// <summary>
         /// Release resources used by the StreamScanner object
         /// </summary>
-        public void Dispose()
-        {
+        public void Dispose() {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);

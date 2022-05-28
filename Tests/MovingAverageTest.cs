@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using NokLib;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NokLib;
 
 namespace Tests
 {
@@ -10,23 +10,20 @@ namespace Tests
     public class MovingAverageTest
     {
         [TestMethod]
-        public void Creation()
-        {
+        public void Creation() {
             var average = new MovingAverage(5);
             Assert.AreEqual(0, average.Average);
         }
 
         [TestMethod]
-        public void Single()
-        {
+        public void Single() {
             var average = new MovingAverage(5);
             average.Add(5);
             Assert.AreEqual(5, average.Average);
         }
 
         [TestMethod]
-        public void Clear()
-        {
+        public void Clear() {
             var average = new MovingAverage(5);
             average.Add(1);
             average.Add(2);
@@ -39,8 +36,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BasicAverage()
-        {
+        public void BasicAverage() {
             var average = new MovingAverage(5);
             average.Add(1);
             average.Add(2);
@@ -51,8 +47,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void AddRange()
-        {
+        public void AddRange() {
             var average = new MovingAverage(5);
             average.Add(1);
             average.Add(2);
@@ -65,8 +60,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void AddRangeAndAdd()
-        {
+        public void AddRangeAndAdd() {
             var average = new MovingAverage(5);
             average.AddRange(new double[] { 1, 2, 3, 4, 5 });
             Assert.AreEqual(3, average.Average);
@@ -75,15 +69,14 @@ namespace Tests
         }
 
         [TestMethod]
-        public void RandomValuesTestAddRange()
-        {
-            var rng = new SystemRandom(123);
+        public void RandomValuesTestAddRange() {
+            var rng = new SystemRandom(12);
             var values = new List<int>();
             for (int i = 0; i < 100; i++)
                 values.Add(rng.NextInt(0, 1000));
-            var linQAvg = values.Average();
+            var linQAvg = values.Select(Convert.ToDouble).Average();
             MovingAverage calculator = new MovingAverage(5);
-            var calculatorAverage = calculator.AddRange(values.Cast<double>());
+            var calculatorAverage = calculator.AddRange(values.Select(Convert.ToDouble));
             Assert.AreEqual(linQAvg, calculatorAverage);
             Assert.AreEqual(calculatorAverage, calculator.Average);
         }

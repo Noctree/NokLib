@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using NokLib.Parsers;
 using SysConsole = System.Console;
 
@@ -22,16 +20,14 @@ namespace NokLib.ConsoleUtils
         public static decimal ReadDecimal(string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red) => ReadValue(DecimalParser.Instance, errorMessage, errorColor);
         public static double ReadDouble(string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red) => ReadValue(DoubleParser.Instance, errorMessage, errorColor);
         public static float ReadFloat(string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red) => ReadValue(FloatParser.Instance, errorMessage, errorColor);
-        public static T ReadValue<T>(IParser<T> parser, string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red, bool allowEmpty = false, bool autoHideCursor = true)
-        {
+        public static T ReadValue<T>(IParser<T> parser, string errorMessage = DEFAULT_ERROR_MESSAGE, ConsoleColor errorColor = ConsoleColor.Red, bool allowEmpty = false, bool autoHideCursor = true) {
             string errorMsgErase = new string(' ', errorMessage.Length);
             T? result = default;
             int cursorLeft = SysConsole.CursorLeft;
             int cursorTop = SysConsole.CursorTop;
             SysConsole.CursorVisible = true;
             bool success = false;
-            while (!success)
-            {
+            while (!success) {
                 string input = SysConsole.ReadLine() ?? string.Empty;
                 if (string.IsNullOrEmpty(input) && allowEmpty)
                     break;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace NokLib
 {
@@ -24,8 +23,7 @@ namespace NokLib
         /// <param name="initialAllocation">How many objects to preallocate whent the pool is created</param>
         /// <param name="collectionCheck">Prevents an object from being returned twice</param>
         public ObjectPool(Action<T> onDispose, Func<T>? createObject = null, Action<T>? onGet = null, Action<T>? onRelease = null, int capacity = DEFAULT_MAX_CAPACITY, bool collectionCheck = DEFAULT_COLLECTION_CHECK) :
-            base(onDispose, createObject, onGet, onRelease, capacity, collectionCheck)
-        {
+            base(onDispose, createObject, onGet, onRelease, capacity, collectionCheck) {
             stack = new Stack<T>();
         }
 
@@ -41,8 +39,7 @@ namespace NokLib
         protected override T StackPop() => stack.Pop();
         protected override bool StackTryPop(out T? obj) => stack.TryPop(out obj);
 
-        protected override void StackPush(T obj)
-        {
+        protected override void StackPush(T obj) {
             stack.Push(obj);
             if (stack.Count == Capacity)
                 stack.TrimExcess();

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace NokLib
 {
@@ -12,8 +11,7 @@ namespace NokLib
     {
         private readonly static Dictionary<Type, EnumConverter> stringifiedEnums;
 
-        static EnumStringifier()
-        {
+        static EnumStringifier() {
             stringifiedEnums = new Dictionary<Type, EnumConverter>();
         }
 
@@ -23,8 +21,7 @@ namespace NokLib
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string ToString<T>(T value) where T : Enum
-        {
+        public static string ToString<T>(T value) where T : Enum {
             if (!stringifiedEnums.ContainsKey(typeof(T)))
                 CreateEnumConversionTable<T>();
             EnumConverter<T>? converter = stringifiedEnums[typeof(T)] as EnumConverter<T>;
@@ -37,8 +34,7 @@ namespace NokLib
         /// Returns names of each enum value.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public static string[] GetNames<T>() where T : Enum
-        {
+        public static string[] GetNames<T>() where T : Enum {
             if (!stringifiedEnums.ContainsKey(typeof(T)))
                 CreateEnumConversionTable<T>();
             return stringifiedEnums[typeof(T)].GetNames();
@@ -48,14 +44,12 @@ namespace NokLib
         /// Release resources occupied by a conversion table for enum of type T. Useful for usage with large enums
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public static void Release<T>()
-        {
+        public static void Release<T>() {
             if (stringifiedEnums.ContainsKey(typeof(T)))
                 stringifiedEnums.Remove(typeof(T));
         }
 
-        private static void CreateEnumConversionTable<T>() where T : Enum
-        {
+        private static void CreateEnumConversionTable<T>() where T : Enum {
             stringifiedEnums.Add(typeof(T), new EnumConverter<T>());
         }
     }
@@ -68,8 +62,7 @@ namespace NokLib
     internal class EnumConverter<T> : EnumConverter where T : Enum
     {
         protected readonly Dictionary<T, string> strings;
-        public EnumConverter()
-        {
+        public EnumConverter() {
             var enumType = typeof(T);
             var values = Enum.GetValues(enumType).Cast<T>().ToArray();
             string[] names = Enum.GetNames(enumType);
@@ -82,8 +75,7 @@ namespace NokLib
             }
         }
 
-        public override string[] GetNames()
-        {
+        public override string[] GetNames() {
             string[] names = new string[strings.Count];
             strings.Values.CopyTo(names, 0);
             return names;

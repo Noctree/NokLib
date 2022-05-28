@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NokLib
 {
@@ -10,27 +8,23 @@ namespace NokLib
         private bool disposedValue;
 
         public T Object { get; }
-        public PooledObject(T pooledObject, ObjectPoolBase<T> objectPool)
-        {
+        public PooledObject(T pooledObject, ObjectPoolBase<T> objectPool) {
             pool = objectPool;
             Object = pooledObject;
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
+        protected virtual void Dispose(bool disposing) {
             if (!disposedValue) {
                 pool.Release(Object);
                 disposedValue = true;
             }
         }
 
-        ~PooledObject()
-        {
+        ~PooledObject() {
             Dispose(disposing: false);
         }
 
-        public void Dispose()
-        {
+        public void Dispose() {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }

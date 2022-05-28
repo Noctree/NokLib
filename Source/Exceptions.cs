@@ -21,10 +21,9 @@ namespace NokLib
         public readonly T? Limit;
         public readonly T? ActualValue;
         public LimitReachedException(T limit, T actualValue, string? message = null) :
-            base(message is null?
+            base(message is null ?
                 $"Value {actualValue} exceeds maximum limit {limit}" :
-                $"Value {actualValue} exceeds maximum limit {limit} ({message})")
-        {
+                $"Value {actualValue} exceeds maximum limit {limit} ({message})") {
             Limit = limit;
             ActualValue = actualValue;
         }

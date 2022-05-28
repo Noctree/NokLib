@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NokLib.Parsers
 {
@@ -8,15 +6,13 @@ namespace NokLib.Parsers
     {
         public static readonly FastByteParser Instance = new FastByteParser();
 
-        public byte Parse(string input)
-        {
+        public byte Parse(string input) {
             if (TryParse(input, out var result))
                 return result;
             else
                 throw new FormatException();
         }
-        public bool TryParse(string input, out byte result)
-        {
+        public bool TryParse(string input, out byte result) {
             result = 0;
             if (string.IsNullOrEmpty(input) || input.Length > 3)
                 return false;

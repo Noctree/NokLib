@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NokLib.Parsers
 {
     internal static class NumberParser
     {
-        internal static bool TryParseNumber(ReadOnlySpan<char> input, ulong maxValue, out ulong result)
-        {
+        internal static bool TryParseNumber(ReadOnlySpan<char> input, ulong maxValue, out ulong result) {
             result = 0;
             if (input.IsEmpty || input.Length == 0)
                 return false;
@@ -26,8 +23,7 @@ namespace NokLib.Parsers
             return true;
         }
 
-        internal static bool TryParseNumberOld(ReadOnlySpan<char> input, ulong maxValue, out ulong result)
-        {
+        internal static bool TryParseNumberOld(ReadOnlySpan<char> input, ulong maxValue, out ulong result) {
             result = 0;
             if (input.IsEmpty || input.Length == 0)
                 return false;
@@ -45,8 +41,7 @@ namespace NokLib.Parsers
             return true;
         }
 
-        private static bool TryParseLastDigit(char input, ulong maxLastDigit, ref ulong result)
-        {
+        private static bool TryParseLastDigit(char input, ulong maxLastDigit, ref ulong result) {
             ulong lastDigit = (ulong)input - '0';
             if (lastDigit > maxLastDigit)
                 return false;
@@ -54,8 +49,7 @@ namespace NokLib.Parsers
             return true;
         }
 
-        internal static bool TryParseUInt(ReadOnlySpan<char> input, out uint result)
-        {
+        internal static bool TryParseUInt(ReadOnlySpan<char> input, out uint result) {
             result = 0;
             if (input.IsEmpty || input.Length == 0)
                 return false;

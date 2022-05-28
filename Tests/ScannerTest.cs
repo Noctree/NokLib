@@ -1,6 +1,6 @@
-using NokLib;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NokLib;
 
 namespace Tests
 {
@@ -11,23 +11,20 @@ namespace Tests
         private MemoryStream stream;
 
         [TestInitialize]
-        public void Init()
-        {
+        public void Init() {
             stream = new MemoryStream();
             scanner = new StreamScanner(stream);
         }
 
         [TestMethod]
-        public void Readline()
-        {
+        public void Readline() {
             string message = "Hello World!";
             stream.StaticWrite(message);
             Assert.AreEqual(message, scanner.ReadLine());
         }
 
         [TestMethod]
-        public void ReadLineWithNewLine()
-        {
+        public void ReadLineWithNewLine() {
             string message = "Hello World!";
             string extra = "this is garbage";
             stream.StaticWrite(string.Concat(message, "\n", extra));
@@ -35,103 +32,90 @@ namespace Tests
         }
 
         [TestMethod]
-        public void ReadInt()
-        {
+        public void ReadInt() {
             int number = 69420;
             stream.StaticWrite(number);
             Assert.AreEqual(number, scanner.ReadInt());
         }
 
         [TestMethod]
-        public void ReadIntPadded()
-        {
+        public void ReadIntPadded() {
             int number = 69420;
             stream.StaticWrite(string.Concat(number, "more garbage"));
             Assert.AreEqual(number, scanner.ReadInt());
         }
 
         [TestMethod]
-        public void ReadNegativeInt()
-        {
+        public void ReadNegativeInt() {
             int number = -1358008;
             stream.StaticWrite(number);
             Assert.AreEqual(number, scanner.ReadInt());
         }
 
         [TestMethod]
-        public void ReadNegativeIntPadded()
-        {
+        public void ReadNegativeIntPadded() {
             int number = -1358008;
             stream.StaticWrite(string.Concat(number, "even more garbage"));
             Assert.AreEqual(number, scanner.ReadInt());
         }
 
         [TestMethod]
-        public void ReadMaxIntValue()
-        {
+        public void ReadMaxIntValue() {
             stream.StaticWrite(int.MaxValue);
             Assert.AreEqual(int.MaxValue, scanner.ReadInt());
         }
 
         [TestMethod]
-        public void ReadDoubleWithoutDecimal()
-        {
+        public void ReadDoubleWithoutDecimal() {
             double number = 69;
             stream.StaticWrite(number);
             Assert.AreEqual(number, scanner.ReadDouble());
         }
 
         [TestMethod]
-        public void ReadDouble()
-        {
+        public void ReadDouble() {
             double number = 69.4201337;
             stream.StaticWrite(number);
             Assert.AreEqual(number, scanner.ReadDouble());
         }
 
         [TestMethod]
-        public void ReadNegativeDouble()
-        {
+        public void ReadNegativeDouble() {
             double number = -12345.6789;
             stream.StaticWrite(number);
             Assert.AreEqual(number, scanner.ReadDouble());
         }
 
         [TestMethod]
-        public void ReadNegativeDoubleWithoutDecimal()
-        {
+        public void ReadNegativeDoubleWithoutDecimal() {
             double number = -69;
             stream.StaticWrite(number);
             Assert.AreEqual(number, scanner.ReadDouble());
         }
 
         [TestMethod]
-        public void ReadDoublePadded()
-        {
+        public void ReadDoublePadded() {
             double number = 69.420;
             stream.StaticWrite(string.Concat(number, "Why even read this?"));
             Assert.AreEqual(number, scanner.ReadDouble());
         }
 
         [TestMethod]
-        public void ReadLong()
-        {
+        public void ReadLong() {
             long number = 12345678987654321;
             stream.StaticWrite(number);
             Assert.AreEqual(number, scanner.ReadLong());
         }
 
         [TestMethod]
-        public void ReadNegativeLong()
-        {
+        public void ReadNegativeLong() {
             long number = -12345678987654321;
             stream.StaticWrite(number);
             Assert.AreEqual(number, scanner.ReadLong());
         }
 
         [TestMethod]
-        public void ReadLongMaxValue()
-        {
+        public void ReadLongMaxValue() {
             stream.StaticWrite(long.MaxValue);
             Assert.AreEqual(long.MaxValue, scanner.ReadLong());
         }

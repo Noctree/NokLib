@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace NokLib
 {
@@ -27,8 +23,7 @@ namespace NokLib
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string AppendIfMissing(this string str, string suffix)
-        {
+        public static string AppendIfMissing(this string str, string suffix) {
             if (str.EndsWith(suffix))
                 return str;
             else
@@ -41,8 +36,7 @@ namespace NokLib
         /// <param name="str"></param>
         /// <param name="prefix"></param>
         /// <returns></returns>
-        public static string PrependIfMissing(this string str, string prefix)
-        {
+        public static string PrependIfMissing(this string str, string prefix) {
             if (str.StartsWith(prefix))
                 return str;
             else
@@ -55,8 +49,7 @@ namespace NokLib
         /// <param name="str"></param>
         /// <param name="maxLength">Maximum length of the string</param>
         /// <returns></returns>
-        public static string TrimIfLongerThan(this string str, int maxLength)
-        {
+        public static string TrimIfLongerThan(this string str, int maxLength) {
             if (str.Length > maxLength)
                 return str.Substring(0, maxLength);
             return str;
@@ -67,8 +60,7 @@ namespace NokLib
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string FixWindowsPath(this string str)
-        {
+        public static string FixWindowsPath(this string str) {
             return str.Replace('\\', '/');
         }
 
@@ -77,8 +69,7 @@ namespace NokLib
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string WindowsifyPath(this string str)
-        {
+        public static string WindowsifyPath(this string str) {
             return str.Replace('/', '\\');
         }
     }

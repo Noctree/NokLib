@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
-using NokLib;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NokLib;
 
 namespace Tests
 {
@@ -9,8 +8,7 @@ namespace Tests
     public class RingBufferTest
     {
         [TestMethod]
-        public void Add()
-        {
+        public void Add() {
             RingBuffer<int> buffer = new RingBuffer<int>(5);
             buffer.Add(1);
             buffer.Add(2);
@@ -21,8 +19,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void Overriding()
-        {
+        public void Overriding() {
             RingBuffer<int> buffer = new RingBuffer<int>(5);
             buffer.AddRange(new int[] { 1, 2, 3, 4, 5 });
             CollectionAssert.AreEqual(new int[] { 1, 2, 3, 4, 5 }, buffer.ToArray());
@@ -31,8 +28,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void Clear()
-        {
+        public void Clear() {
             RingBuffer<int> buffer = new RingBuffer<int>(5);
             buffer.AddRange(new int[] { 1, 2, 3, 4, 5 });
             CollectionAssert.AreEqual(new int[] { 1, 2, 3, 4, 5 }, buffer.ToArray());
@@ -41,8 +37,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void Contains()
-        {
+        public void Contains() {
             RingBuffer<int> buffer = new RingBuffer<int>(5);
             buffer.AddRange(new int[] { 1, 2, 3, 4, 5 });
             Assert.IsFalse(buffer.Contains(6));

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Text;
 
 namespace NokLib
 {
@@ -15,16 +14,14 @@ namespace NokLib
         protected override int StackCount => stack.Count;
 
         public ConcurrentObjectPool(Action<T> onDispose, Func<T>? createObject = null, Action<T>? onGet = null, Action<T>? onRelease = null, int capacity = DEFAULT_MAX_CAPACITY, bool collectionCheck = DEFAULT_COLLECTION_CHECK) :
-            base(onDispose, createObject, onGet, onRelease, capacity, collectionCheck)
-        {
+            base(onDispose, createObject, onGet, onRelease, capacity, collectionCheck) {
             stack = new ConcurrentStack<T>();
         }
 
         /// <inheritdoc cref="ObjectPoolBase{T}.PreAllocate(int)"/>
         public new void PreAllocate(int amount) => base.PreAllocate(amount);
 
-        public override bool HasBeenReturned(T obj)
-        {
+        public override bool HasBeenReturned(T obj) {
             foreach (var item in stack)
                 if (item.Equals(obj))
                     return true;
@@ -34,8 +31,7 @@ namespace NokLib
         protected override IEnumerable<T> StackAsEnumerable() => stack;
 
         protected override void StackClear() => stack.Clear();
-        protected override T StackPop()
-        {
+        protected override T StackPop() {
             if (!stack.TryPop(out T? obj)) {
                 throw new ConcurrencyException("Failed to retrieve object from the internal stack");
             }

@@ -1,8 +1,7 @@
-﻿using NokLib;
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
+﻿using System;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NokLib;
 
 namespace Tests
 {
@@ -10,14 +9,12 @@ namespace Tests
     public class EnumStringifierTest
     {
         [TestMethod]
-        public void Simple()
-        {
+        public void Simple() {
             Assert.AreEqual(ConsoleColor.White.ToString(), EnumStringifier.ToString(ConsoleColor.White));
         }
 
         [TestMethod]
-        public void Complex()
-        {
+        public void Complex() {
             var values = Enum.GetValues(typeof(ConsoleColor)) as ConsoleColor[];
 
             for (int i = 0; i < values.Length; i++) {
@@ -26,15 +23,13 @@ namespace Tests
         }
 
         [TestMethod]
-        public void MultipleSimple()
-        {
+        public void MultipleSimple() {
             Assert.AreEqual(ConsoleColor.White.ToString(), EnumStringifier.ToString(ConsoleColor.White));
             Assert.AreEqual(DayOfWeek.Monday.ToString(), EnumStringifier.ToString(DayOfWeek.Monday));
         }
 
         [TestMethod]
-        public void MultipleComplex()
-        {
+        public void MultipleComplex() {
             var colors = Enum.GetValues(typeof(ConsoleColor)) as ConsoleColor[];
             var days = Enum.GetValues(typeof(DayOfWeek)) as DayOfWeek[];
             foreach (var item in colors.Zip(days)) {

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace NokLib.Parsers
 {
@@ -14,8 +12,7 @@ namespace NokLib.Parsers
 
         public decimal Parse(string input, NumberStyles style = NumberStyles.Number, IFormatProvider? formatProvider = null) => decimal.Parse(input.Replace(',', '.'), style, formatProvider);
 
-        public bool TryParse(string input, NumberStyles style, IFormatProvider? formatProvider, out decimal result)
-        {
+        public bool TryParse(string input, NumberStyles style, IFormatProvider? formatProvider, out decimal result) {
             return decimal.TryParse(input.Replace(',', '.'), style, formatProvider, out result);
         }
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NokLib
+﻿namespace NokLib
 {
     public static class MiscellaneousExtensions
     {
@@ -14,9 +8,8 @@ namespace NokLib
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string SafeToString(this object? obj)
-        {
-            return obj is null? Constants.NULL : (obj.ToString() ?? Constants.NULL);
+        public static string SafeToString(this object? obj) {
+            return obj is null ? Constants.NULL : (obj.ToString() ?? Constants.NULL);
         }
     }
 }

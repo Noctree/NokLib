@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NokLib.ConsoleUtils.UI
 {
@@ -25,8 +23,7 @@ namespace NokLib.ConsoleUtils.UI
         public int Index => index;
         public T SelectedItem => items[index];
         public bool Shown { get; private set; }
-        public ConsoleListView(IEnumerable<T> collection)
-        {
+        public ConsoleListView(IEnumerable<T> collection) {
             if (collection is null)
                 throw new ArgumentNullException(nameof(collection));
             if (!collection.Any())
@@ -35,21 +32,18 @@ namespace NokLib.ConsoleUtils.UI
             index = 0;
         }
 
-        public void SetItems(IEnumerable<T> items)
-        {
+        public void SetItems(IEnumerable<T> items) {
             this.items.Clear();
             this.items = new List<T>(items);
         }
 
         public T GetItemAt(int index) => items[index];
 
-        private void Render(string bullet = "-", ConsoleColor? _bulletColor = null, ConsoleColor? _itemColor = null)
-        {
+        private void Render(string bullet = "-", ConsoleColor? _bulletColor = null, ConsoleColor? _itemColor = null) {
             ConsoleColor itemColor = _itemColor ?? Console.ForegroundColor;
             ConsoleColor bulletColor = _bulletColor ?? Console.ForegroundColor;
             int left = Console.CursorLeft;
-            foreach (var item in items)
-            {
+            foreach (var item in items) {
                 ConsoleWriter.Write(bullet, bulletColor);
                 ConsoleWriter.Write(Space);
                 ConsoleWriter.WriteLine(CustomToStringMethod is null ? item.SafeToString() : CustomToStringMethod(item), itemColor);
@@ -57,8 +51,7 @@ namespace NokLib.ConsoleUtils.UI
             }
         }
 
-        public int Show()
-        {
+        public int Show() {
             Shown = true;
             Console.CursorVisible = false;
             index = 0;
@@ -66,11 +59,9 @@ namespace NokLib.ConsoleUtils.UI
             CalculateBounds(Bullet, SelectionBullet, itemNames);
             RenderInSelectionMode(Bullet, SelectionBullet, SelectedBulletColor, SelectedItemColor, BulletColor, ItemColor, itemNames);
             bool run = true;
-            while (run)
-            {
+            while (run) {
                 RenderInSelectionMode(Bullet, SelectionBullet, SelectedBulletColor, SelectedItemColor, BulletColor, ItemColor, itemNames);
-                switch (Console.ReadKey(true).Key)
-                {
+                switch (Console.ReadKey(true).Key) {
                     case ConsoleKey.Enter:
                         run = false;
                         break;
@@ -94,8 +85,7 @@ namespace NokLib.ConsoleUtils.UI
             return index;
         }
 
-        private void RenderInSelectionMode(string bullet, string selectedBullet, ConsoleColor selectedBulletColor, ConsoleColor selectedItemColor, ConsoleColor bulletColor, ConsoleColor itemColor, List<string> items)
-        {
+        private void RenderInSelectionMode(string bullet, string selectedBullet, ConsoleColor selectedBulletColor, ConsoleColor selectedItemColor, ConsoleColor bulletColor, ConsoleColor itemColor, List<string> items) {
             ConsolePrinter.ClearArea(startX, startY, endX, endY);
             Console.SetCursorPosition(startX, startY);
             Render(bullet, bulletColor, itemColor);
@@ -105,8 +95,7 @@ namespace NokLib.ConsoleUtils.UI
             ConsoleWriter.Write(items[index], selectedItemColor);
         }
 
-        private void CalculateBounds(string bullet, string selectedBullet, List<string> items)
-        {
+        private void CalculateBounds(string bullet, string selectedBullet, List<string> items) {
             int bulletSize = Math.Max(bullet.Length, selectedBullet.Length);
             int maxItemLength = items.Max(item => item.Length);
             startX = Console.CursorLeft;

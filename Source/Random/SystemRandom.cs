@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace NokLib {
+namespace NokLib
+{
     /// <summary>
     /// Adapter for System.Random to be compatible with IRandomProvider interface
     /// </summary>
@@ -20,8 +17,7 @@ namespace NokLib {
         /// </summary>
         public SystemRandom() : this(GenerateSeed()) { }
 
-        public SystemRandom(int seed)
-        {
+        public SystemRandom(int seed) {
             Seed = seed;
             Random = new Random(seed);
         }
@@ -34,14 +30,12 @@ namespace NokLib {
         public bool InclusiveMinimum => true;
         public bool InclusiveMaximum => false;
 
-        protected static int GenerateSeed()
-        {
+        protected static int GenerateSeed() {
             if (failedGetGenerateSeedMethod)
                 return 0;
             if (SysRandGenSeedMethodDelegate is null) {
                 MethodInfo? methodInfo = typeof(System.Random).GetMethod("GenerateSeed", BindingFlags.Static | BindingFlags.NonPublic);
-                if (methodInfo is null)
-                {
+                if (methodInfo is null) {
                     failedGetGenerateSeedMethod = true;
                     return 0;
                 }
@@ -53,22 +47,18 @@ namespace NokLib {
         /// <summary>
         /// Reinitializes the random number generator with a new generated seed
         /// </summary>
-        public void ResetSeed()
-        {
+        public void ResetSeed() {
             Seed = GenerateSeed();
             SeedKnown = true;
-            if (failedGetGenerateSeedMethod)
-            {
+            if (failedGetGenerateSeedMethod) {
                 Random = new Random();
                 SeedKnown = false;
             }
-            else
-            {
+            else {
                 Random = new Random((int)Seed);
             }
         }
-        public void SetSeed(long seed)
-        {
+        public void SetSeed(long seed) {
             if (seed != Seed) {
                 Random = new Random((int)seed);
                 Seed = (int)seed;

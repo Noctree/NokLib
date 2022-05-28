@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace NokLib
@@ -12,8 +11,7 @@ namespace NokLib
         /// <param name="boolean"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ToInt(this bool boolean)
-        {
+        public static int ToInt(this bool boolean) {
             if (boolean)
                 return 1;
             return 0;
@@ -25,20 +23,17 @@ namespace NokLib
         /// <param name="val"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool ToBool(this int val)
-        {
+        public static bool ToBool(this int val) {
             return val != 0;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ToInt<T>(this T value) where T : Enum
-        {
+        public static int ToInt<T>(this T value) where T : Enum {
             return (int)(object)value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T ToEnum<T>(this int value) where T : Enum
-        {
+        public static T ToEnum<T>(this int value) where T : Enum {
             return (T)(object)value;
         }
 

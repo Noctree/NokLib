@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace NokLib
 {
@@ -8,47 +7,38 @@ namespace NokLib
     {
         protected W WeightSum;
         protected List<ValueTuple<T, W>> Weights;
-        protected WeightedRandomBase(IEnumerable<ValueTuple<T, W>> weights)
-        {
+        protected WeightedRandomBase(IEnumerable<ValueTuple<T, W>> weights) {
             this.Weights = new List<ValueTuple<T, W>>(weights);
             WeightSum = SumWeights(this.Weights);
         }
 
-        public void SetWeights(IEnumerable<ValueTuple<T, W>> newWeights)
-        {
+        public void SetWeights(IEnumerable<ValueTuple<T, W>> newWeights) {
             Weights.Clear();
             Weights.AddRange(newWeights);
             SumWeights(Weights);
         }
 
-        public void AddWeight(W weight, T obj)
-        {
+        public void AddWeight(W weight, T obj) {
             Weights.Add((obj, weight));
             SumWeights(Weights);
         }
 
-        public void RemoveByObject(T obj)
-        {
+        public void RemoveByObject(T obj) {
             if (obj is null)
                 return;
-            for (int i = 0; i < Weights.Count; i++)
-            {
+            for (int i = 0; i < Weights.Count; i++) {
                 var value = Weights[i];
-                if (value.Item1 != null && value.Item1.Equals(obj))
-                {
+                if (value.Item1 != null && value.Item1.Equals(obj)) {
                     Weights.RemoveAt(i);
                     return;
                 }
             }
         }
 
-        public void RemoveByWeight(W weight)
-        {
-            for (int i = 0; i < Weights.Count; i++)
-            {
+        public void RemoveByWeight(W weight) {
+            for (int i = 0; i < Weights.Count; i++) {
                 var value = Weights[i];
-                if (value.Item2.Equals(weight))
-                {
+                if (value.Item2.Equals(weight)) {
                     Weights.RemoveAt(i);
                     --i;
                 }
@@ -56,8 +46,7 @@ namespace NokLib
             SumWeights(Weights);
         }
 
-        public IReadOnlyList<ValueTuple<T, W>> GetWeights()
-        {
+        public IReadOnlyList<ValueTuple<T, W>> GetWeights() {
             return Weights;
         }
         public abstract T Select(W weight);
