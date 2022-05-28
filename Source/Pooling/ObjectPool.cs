@@ -23,11 +23,14 @@ namespace NokLib
         /// <param name="capacity">The maximum allowed capacity of the pool</param>
         /// <param name="initialAllocation">How many objects to preallocate whent the pool is created</param>
         /// <param name="collectionCheck">Prevents an object from being returned twice</param>
-        public ObjectPool(Action<T> onDispose, Func<T>? createObject = null, Action<T>? onGet = null, Action<T>? onRelease = null, int capacity = DEFAULT_MAX_CAPACITY, int initialAllocation =DEFAULT_INIT_ALLOCATION, bool collectionCheck = DEFAULT_COLLECTION_CHECK) :
-            base(onDispose, createObject, onGet, onRelease, capacity, initialAllocation, collectionCheck)
+        public ObjectPool(Action<T> onDispose, Func<T>? createObject = null, Action<T>? onGet = null, Action<T>? onRelease = null, int capacity = DEFAULT_MAX_CAPACITY, bool collectionCheck = DEFAULT_COLLECTION_CHECK) :
+            base(onDispose, createObject, onGet, onRelease, capacity, collectionCheck)
         {
-            stack = new Stack<T>(initialAllocation);
+            stack = new Stack<T>();
         }
+
+        ///<inheritdoc cref="ObjectPoolBase{T}.PreAllocate(int)"/>
+        public new void PreAllocate(int amount) => base.PreAllocate(amount);
 
         public override bool HasBeenReturned(T obj) => stack.Contains(obj);
 

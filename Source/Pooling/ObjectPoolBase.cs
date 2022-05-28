@@ -10,7 +10,6 @@ namespace NokLib
     public abstract class ObjectPoolBase<T> : IObjectPool<T> where T : class
     {
         protected const int DEFAULT_MAX_CAPACITY = 32;
-        protected const int DEFAULT_INIT_ALLOCATION = 0;
         protected const bool DEFAULT_COLLECTION_CHECK = true;
         protected Func<T>? createFunc;
         protected Action<T>? onGetFunc;
@@ -33,19 +32,24 @@ namespace NokLib
         /// <param name="onGet">Gets called when an object is rented</param>
         /// <param name="onRelease">Gets called when an object is released</param>
         /// <param name="capacity">The maximum allowed capacity of the pool</param>
-        /// <param name="initialAllocation">How many objects to preallocate whent the pool is created</param>
         /// <param name="doDuplicateCheck">Prevents an object from being returned twice</param>
-        protected ObjectPoolBase(Action<T> onDispose, Func<T>? createObject = null, Action<T>? onGet = null, Action<T>? onRelease = null, int capacity = DEFAULT_MAX_CAPACITY, int initialAllocation = DEFAULT_INIT_ALLOCATION, bool doDuplicateCheck = DEFAULT_COLLECTION_CHECK)
+        protected ObjectPoolBase(Action<T> onDispose, Func<T>? createObject = null, Action<T>? onGet = null, Action<T>? onRelease = null, int capacity = DEFAULT_MAX_CAPACITY, bool doDuplicateCheck = DEFAULT_COLLECTION_CHECK)
         {
-            initialAllocation = initialAllocation > capacity ? capacity : initialAllocation;
             Capacity = capacity;
             createFunc = createObject;
             onGetFunc = onGet;
             onReleaseFunc = onRelease;
             onDisposeFunc = onDispose;
             DoDulicateCheck = doDuplicateCheck;
+        }
 
-            for (int i = 0; i < initialAllocation; i++)
+        /// <summary>
+        /// Preallocates a specified amount of objects, throws an exception if <paramref name="amount"/> exceeds <see cref="Capacity"/>
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <exception cref="LimitReachedException"></exception>
+        protected void PreAllocate(int amount) {
+            for (int i = 0; i < amount; i++)
                 AllocateNew();
         }
 
