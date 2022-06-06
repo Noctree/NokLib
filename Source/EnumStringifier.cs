@@ -5,82 +5,33 @@ using System.Linq;
 namespace NokLib
 {
     /// <summary>
-    /// Class for converting enums to strings, works by caching all enum string values in a dictionary. While neglegibly slower than regular ToString method, this class does not generate any garbage during conversion
+    /// Class for converting enums to strings, works by caching all enum string values in a dictionary. Thanks to caching its a lot faster and allocation free
     /// </summary>
     public static class EnumStringifier
     {
-        private readonly static Dictionary<Type, EnumConverter> stringifiedEnums;
+        static class EnumCache<T> where T : unmanaged, Enum {
+            static EnumCache() {
+                names = Enum.GetNames<T>().ToList();
+                nameDict = Enum.GetValues<T>().ToDictionary(val => val.ToLongFast(), val => val.ToString());
+            }
 
-        static EnumStringifier() {
-            stringifiedEnums = new Dictionary<Type, EnumConverter>();
+            private static List<string> names;
+            private static Dictionary<long, string> nameDict;
+            public static IReadOnlyList<string> Names => names.AsReadOnly();
+            public static string Convert(T value) => nameDict[value.ToLongFast()];
         }
-
         /// <summary>
         /// Converts the enum to string, creates a conversion table if the enum is being converted for the first time
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string ToString<T>(T value) where T : Enum {
-            if (!stringifiedEnums.ContainsKey(typeof(T)))
-                CreateEnumConversionTable<T>();
-            EnumConverter<T>? converter = stringifiedEnums[typeof(T)] as EnumConverter<T>;
-            if (converter is null)
-                throw new InvalidOperationException($"EnumStringifier does not contain values for enum {typeof(T)} despite generating a conversion table");
-            return converter.Convert(value);
-        }
+        public static string ToString<T>(T value) where T : unmanaged, Enum => EnumCache<T>.Convert(value);
 
         /// <summary>
         /// Returns names of each enum value.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public static string[] GetNames<T>() where T : Enum {
-            if (!stringifiedEnums.ContainsKey(typeof(T)))
-                CreateEnumConversionTable<T>();
-            return stringifiedEnums[typeof(T)].GetNames();
-        }
-
-        /// <summary>
-        /// Release resources occupied by a conversion table for enum of type T. Useful for usage with large enums
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        public static void Release<T>() {
-            if (stringifiedEnums.ContainsKey(typeof(T)))
-                stringifiedEnums.Remove(typeof(T));
-        }
-
-        private static void CreateEnumConversionTable<T>() where T : Enum {
-            stringifiedEnums.Add(typeof(T), new EnumConverter<T>());
-        }
-    }
-
-    internal abstract class EnumConverter
-    {
-        public abstract string[] GetNames();
-    }
-
-    internal class EnumConverter<T> : EnumConverter where T : Enum
-    {
-        protected readonly Dictionary<T, string> strings;
-        public EnumConverter() {
-            var enumType = typeof(T);
-            var values = Enum.GetValues(enumType).Cast<T>().ToArray();
-            string[] names = Enum.GetNames(enumType);
-
-            if (values.Length != names.Length)
-                throw new SizeMismatchException("Enum.GetValues returned an array of different length than Enum.GetNames");
-            strings = new Dictionary<T, string>(values.Length);
-            for (int i = 0; i < values.Length; i++) {
-                strings.Add(values[i], names[i]);
-            }
-        }
-
-        public override string[] GetNames() {
-            string[] names = new string[strings.Count];
-            strings.Values.CopyTo(names, 0);
-            return names;
-        }
-
-        public string Convert(T index) => strings[index];
+        public static IReadOnlyList<string> GetNames<T>() where T : unmanaged, Enum => EnumCache<T>.Names;
     }
 }

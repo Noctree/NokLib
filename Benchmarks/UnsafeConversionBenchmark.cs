@@ -13,13 +13,13 @@ namespace Benchmarks
         public ConsoleColor Enum { get; set; }
 
         [Benchmark]
-        public int BooleanAsInt() => Boolean.AsInt();
+        public int BooleanAsInt() => Boolean.ToInt();
 
         [Benchmark]
-        public int BooleanAsIntFast() => Boolean.AsIntFast();
+        public int BooleanAsIntFast() => Boolean.ToIntFast();
 
         [Benchmark]
-        public int EnumAsInt() => Enum.AsInt();
+        public int EnumAsInt() => Enum.ToInt();
         [Benchmark]
         public int EnumAsIntFast() => Enum.AsIntFast();
     }

@@ -8,8 +8,12 @@ namespace NokLib
     [Serializable]
     public class LimitReachedException : Exception
     {
-        public LimitReachedException(string? message = null) : base(message) { }
-        public LimitReachedException(string? message, Exception inner) : base(message, inner) { }
+        public int? Limit { get; } = null;
+        public LimitReachedException(string? message = null) : this(null, message) { }
+        public LimitReachedException(int? limit = null, string? message = null) : this(message, null) {
+            Limit = limit;
+        }
+        public LimitReachedException(string? message, Exception? inner) : base(message, inner) { }
         public LimitReachedException() { }
     }
     /// <summary>
@@ -18,8 +22,8 @@ namespace NokLib
     [Serializable]
     public class LimitReachedException<T> : LimitReachedException
     {
-        public readonly T? Limit;
-        public readonly T? ActualValue;
+        public new T? Limit { get; } = default;
+        public T? ActualValue { get; } = default;
         public LimitReachedException(T limit, T actualValue, string? message = null) :
             base(message is null ?
                 $"Value {actualValue} exceeds maximum limit {limit}" :
@@ -34,35 +38,12 @@ namespace NokLib
     }
 
     /// <summary>
-    /// Thrown when an object has an unexpected value, or type
-    /// </summary>
-    [Serializable]
-    public class UnexpectedObjectException : Exception
-    {
-        /// <summary>
-        /// Create a new instance of the exception
-        /// </summary>
-        public UnexpectedObjectException() { }
-        /// <summary>
-        /// Create a new instance of the exception with a message describing the cause of the exception
-        /// </summary>
-        /// <param name="message">Cause of the exception</param>
-        public UnexpectedObjectException(string message) : base(message) { }
-        /// <summary>
-        /// Create a new instance of the exception with a message containing the object that caused the exception and its type
-        /// </summary>
-        /// <param name="unexpectedObject"></param>
-        public UnexpectedObjectException(object unexpectedObject) : base($"Object {unexpectedObject} of type {unexpectedObject.GetType()} was not expected here") { }
-
-        public UnexpectedObjectException(string? message, Exception? innerException) : base(message, innerException) { }
-    }
-
-    /// <summary>
     /// Thrown when a type is not supported by a generic class/method
     /// </summary>
     [Serializable]
     public class UnsupportedTypeException : Exception
     {
+        public Type? TheUnsupportedType { get; } = null;
         /// <summary>
         /// Create a new instance of the exception
         /// </summary>
@@ -76,7 +57,11 @@ namespace NokLib
         /// Create a new instance of the exception with a message describing what type is not supported
         /// </summary>
         /// <param name="type">The unsupported type</param>
-        public UnsupportedTypeException(Type type) : base($"Objects of type {type.FullName} are not supported") { }
+        public UnsupportedTypeException(Type type) : this(type, $"Objects of type {type.FullName} are not supported") { }
+
+        public UnsupportedTypeException(Type type, string? message) : base(message) {
+            TheUnsupportedType = type;
+        }
 
         public UnsupportedTypeException(string? message, Exception? innerException) : base(message, innerException) { }
     }
@@ -101,15 +86,23 @@ namespace NokLib
     }
 
     /// <summary>
-    /// Thrown when an array has invalid size
+    /// Thrown when an object has invalid size
     /// </summary>
     [Serializable]
     public class InvalidSizeException : Exception
     {
+        public int? ExpectedSize { get; } = null;
+        public int? ActualSize { get; } = null;
         /// <summary>
         /// Create a new instance of the exception
         /// </summary>
         public InvalidSizeException() { }
+
+        public InvalidSizeException(int expectedSize, int actualSize, string? message) : base(message) {
+            ExpectedSize = expectedSize;
+            ActualSize = actualSize;
+        }
+
         /// <summary>
         /// Create a new instance of the exception with a message describing the cause of the exception
         /// </summary>
@@ -120,7 +113,7 @@ namespace NokLib
     }
 
     /// <summary>
-    /// Thrown when a type is not a type the method requires
+    /// Thrown when a type is not a type the method expets
     /// </summary>
     [Serializable]
     public class TypeMismatchException : Exception
