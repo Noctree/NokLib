@@ -8,7 +8,7 @@
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string SafeToString(this object? obj) {
+        public static string SafeToString<T>(this T? obj) {
             return obj is null ? Constants.NULL : (obj.ToString() ?? Constants.NULL);
         }
     }

@@ -67,14 +67,17 @@ namespace NokLib
             return new ValueTuple<T, T>(min, max);
         }
 
+        ///<inheritdoc cref="FormatToString{T}(IEnumerable{T}, Func{T, string})"/>
+        public static string FormatToString<T>(this IEnumerable<T> collection) => Internal_FormatToStringGeneric(collection, MiscellaneousExtensions.SafeToString);
+
         /// <summary>
         /// Formats the output of the enumerable into a string
         /// </summary>
         /// <param name="collection"></param>
-        public static string FormatToString<T>(this IEnumerable<T> collection, Func<T, string>? customFormatter = null) {
-            if (customFormatter is null)
-                return FormatToString((IEnumerable)collection);
+        /// <param name="customFormatter">Function for converting the object into string</param>
+        public static string FormatToString<T>(this IEnumerable<T> collection, Func<T, string> customFormatter) => Internal_FormatToStringGeneric(collection, customFormatter);
 
+        public static string Internal_FormatToStringGeneric<T>(IEnumerable<T> collection, Func<T, string> customFormatter) {
             const string separator = ", ";
             var sb = StringBuilderPool.Get();
             sb.Append('(');
@@ -89,16 +92,22 @@ namespace NokLib
             return result;
         }
 
+        /// <inheritdoc cref="FormatToString(IEnumerable, Func{object, string})"/>
+        public static string FormatToString(this IEnumerable collection) => Internal_FormatToString(collection, MiscellaneousExtensions.SafeToString);
+
         /// <summary>
         /// Formats the output of the enumerable into a string
         /// </summary>
         /// <param name="collection"></param>
-        public static string FormatToString(this IEnumerable collection) {
+        /// <param name="customFormatter">Function for converting the objects into string</param>
+        public static string FormatToString(this IEnumerable collection, Func<object, string> customFormatter) => Internal_FormatToString(collection, customFormatter);
+
+        private static string Internal_FormatToString(IEnumerable collection, Func<object, string> customFormatter) {
             const string separator = ", ";
             var sb = StringBuilderPool.Get();
             sb.Append('(');
             foreach (var item in collection) {
-                sb.Append(item.SafeToString());
+                sb.Append(customFormatter(item));
                 sb.Append(separator);
             }
             sb.Remove(sb.Length - 2, 2);
