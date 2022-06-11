@@ -9,7 +9,6 @@ namespace NokLib
         /// If true, returns 1, else returns 0
         /// </summary>
         /// <param name="boolean"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ToInt(this bool boolean) {
             if (boolean)
@@ -21,7 +20,6 @@ namespace NokLib
         /// If 0, returns false, else returns true
         /// </summary>
         /// <param name="val"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ToBool(this int val) {
             return val != 0;
@@ -41,7 +39,6 @@ namespace NokLib
         /// Shorthand for writing (float)value
         /// </summary>
         /// <param name="d"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ToFloat(this double d) => (float)d;
     }

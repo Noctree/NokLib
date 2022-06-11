@@ -11,7 +11,7 @@ namespace NokLib
         /// <typeparam name="T"></typeparam>
         /// <param name="val"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string ToStringNonAlloc<T>(this T val) where T : Enum {
+        public static string ToStringNonAlloc<T>(this T val) where T : unmanaged, Enum {
             return EnumStringifier.ToString(val);
         }
 
