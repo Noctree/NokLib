@@ -8,15 +8,18 @@ namespace NokLib
         private bool disposedValue;
 
         public T Object { get; }
+        public bool Released => disposedValue;
         public PooledObject(T pooledObject, ObjectPoolBase<T> objectPool) {
             pool = objectPool;
             Object = pooledObject;
         }
 
+        public void Release() => Dispose();
+
         protected virtual void Dispose(bool disposing) {
             if (!disposedValue) {
-                pool.Release(Object);
                 disposedValue = true;
+                pool.Release(Object);
             }
         }
 

@@ -5,6 +5,7 @@ namespace NokLib
     public static class ListExtensions
     {
         public static void SetLast<T>(this IList<T> list, T value) => list[list.Count - 1] = value;
+        public static T Last<T>(this IList<T> list) => list[list.Count - 1];
         public static void Set<T>(this IList<T> list, int index, T value) {
             if (index < 0)
                 list[list.Count - 1 - index] = value;
