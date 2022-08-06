@@ -14,18 +14,14 @@ public static class ClassReflector
     ///</summary>
     ///<typeparam name="T">Parent type</typeparam>
     /// <returns>A list of all types deriving from type T</returns>
-    public static List<Type> GetAllDerivedTypesOfType<T>() {
-        return GetAllDerivedTypesOfType(typeof(T));
-    }
+    public static List<Type> GetAllDerivedTypesOfType<T>() => GetAllDerivedTypesOfType(typeof(T));
 
     ///<summary>
     ///Get a list of all public types deriving from type T
     ///</summary>
     ///<typeparam name="T">Parent type</typeparam>
     /// <returns>A list of all public types deriving from type T that are publicly visible</returns>
-    public static List<Type> GetAllPublicDerivedTypesOfType<T>() {
-        return GetAllPublicDerivedTypesOfType(typeof(T));
-    }
+    public static List<Type> GetAllPublicDerivedTypesOfType<T>() => GetAllPublicDerivedTypesOfType(typeof(T));
 
     ///<summary>
     ///Get a list of all types deriving from type T

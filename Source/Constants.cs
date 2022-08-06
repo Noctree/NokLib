@@ -1,7 +1,6 @@
-﻿namespace NokLib
+﻿namespace NokLib;
+
+internal static class Constants
 {
-    internal static class Constants
-    {
-        public const string NULL = "null";
-    }
+    public const string NULL = "null";
 }

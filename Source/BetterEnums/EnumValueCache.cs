@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace NokLib;
 public static class EnumValueCache<T> where T : unmanaged, Enum
 {
@@ -26,11 +25,13 @@ public static class EnumValueCache<T> where T : unmanaged, Enum
     public static bool IsDefined(long value) => nameDict.ContainsKey(value);
     public static bool TryParse(string input, out T value) {
         value = default;
-        for (int i = 0; i < values.Length; ++i)
+        for (int i = 0; i < values.Length; ++i) {
             if (string.Equals(input, names[i])) {
                 value = values[i];
                 return true;
             }
+        }
+
         return false;
     }
 
