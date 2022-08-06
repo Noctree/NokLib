@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NokLib.Parsers;
 
-namespace Tests
+namespace NokLib
 {
     [TestClass]
     public class ByteParserTest

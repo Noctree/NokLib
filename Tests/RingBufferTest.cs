@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NokLib;
 
-namespace Tests
+namespace NokLib
 {
     [TestClass]
     public class RingBufferTest

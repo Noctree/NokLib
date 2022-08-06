@@ -4,7 +4,6 @@ namespace NokLib
 {
     public interface INumericParser<T> : IParser<T>
     {
-#nullable enable
         /// <summary>
         /// Parses a string representation of a number, supports formatting trough NumberStyles and optionally IFormatProvider
         /// </summary>
@@ -23,6 +22,5 @@ namespace NokLib
         /// <param name="result"></param>
         /// <returns></returns>
         public T Parse(string input, System.Globalization.NumberStyles style = System.Globalization.NumberStyles.None, IFormatProvider? formatProvider = null);
-#nullable disable
     }
 }

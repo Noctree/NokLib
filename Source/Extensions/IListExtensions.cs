@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace NokLib
 {
-    public static class ListExtensions
+    public static class IListExtensions
     {
         public static void SetLast<T>(this IList<T> list, T value) => list[list.Count - 1] = value;
         public static T Last<T>(this IList<T> list) => list[list.Count - 1];
@@ -31,5 +32,7 @@ namespace NokLib
                 return list[list.Count - 1 - (index % list.Count)];
             return list[index % list.Count];
         }
+
+        public static IReadOnlyList<T> AsReadOnly<T>(this IList<T> list) => new ReadOnlyCollection<T>(list);
     }
 }

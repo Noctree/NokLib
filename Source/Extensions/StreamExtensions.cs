@@ -16,17 +16,26 @@ namespace NokLib
             }
         }
 
-        public static void StaticWrite(this Stream stream, string str) => stream.StaticWrite(str.ToAsciiByteArray());
-
-        public static void StaticWrite(this Stream stream, object obj) => stream.StaticWrite(obj.SafeToString());
-
-        public static void Write(this Stream stream, string str) {
-            if (stream.CanWrite)
-                stream.Write(str.ToAsciiByteArray());
-            else
-                throw new NotSupportedException("Stream must be writable");
+        public static void StaticWrite(this StreamWriter stream, string str) {
+            if (stream.BaseStream.CanSeek) {
+                long pos = stream.BaseStream.Position;
+                stream.Write(str);
+                stream.BaseStream.Position = pos;
+            }
+            else {
+                throw new NotSupportedException("StreamWriter.BaseStream must be seekable");
+            }
         }
 
-        public static void Write(this Stream stream, object obj) => stream.Write(obj.SafeToString());
+        public static void StaticWriteLine(this StreamWriter stream, string str) {
+            if (stream.BaseStream.CanSeek) {
+                long pos = stream.BaseStream.Position;
+                stream.WriteLine(str);
+                stream.BaseStream.Position = pos;
+            }
+            else {
+                throw new NotSupportedException("StreamWriter.BaseStream must be seekable");
+            }
+        }
     }
 }

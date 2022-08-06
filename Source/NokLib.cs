@@ -10,11 +10,11 @@ namespace NokLib
         /// <summary>
         /// Version of the class
         /// </summary>
-        public static readonly Version Version = new Version(1, 0, 1);
+        public static readonly Version Version = new Version(1, 2);
         /// <summary>
         /// Name of the build
         /// </summary>
-        public static readonly string VersionName = "GitHub 1.0.1";
+        public static readonly string VersionName = "GitHub";
 
         /// <summary>
         /// Full name of the build

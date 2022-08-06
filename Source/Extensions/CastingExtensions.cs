@@ -26,8 +26,23 @@ namespace NokLib
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte ToByte<T>(this T value) where T : Enum {
+            return (byte)(object)value;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short ToShort<T>(this T value) where T : Enum {
+            return (short)(object)value;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ToInt<T>(this T value) where T : Enum {
             return (int)(object)value;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static long ToLong<T>(this T value) where T : Enum {
+            return (long)(object)value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

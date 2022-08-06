@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NokLib.Extensions
+namespace NokLib
 {
     public static class ComparisonExtensions
     {

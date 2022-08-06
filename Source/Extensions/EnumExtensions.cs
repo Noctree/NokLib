@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace NokLib
@@ -12,7 +13,7 @@ namespace NokLib
         /// <param name="val"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ToStringNonAlloc<T>(this T val) where T : unmanaged, Enum {
-            return EnumStringifier.ToString(val);
+            return EnumValueCache<T>.ConvertToString(val);
         }
 
         /// <summary>
@@ -21,8 +22,8 @@ namespace NokLib
         /// <typeparam name="T">enum which values should be converted</typeparam>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T[]? GetValues<T>(this T _) where T : Enum {
-            return Enum.GetValues(typeof(T)) as T[];
+        public static IReadOnlyList<T> GetValues<T>(this T _) where T : unmanaged, Enum {
+            return EnumValueCache<T>.Values;
         }
 
         /// <summary>
@@ -32,8 +33,8 @@ namespace NokLib
         /// <param name="_enum"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string[] GetNames<T>(this T _enum) where T : Enum {
-            return Enum.GetNames(_enum.GetType());
+        public static IReadOnlyList<string> GetNames<T>(this T _) where T : unmanaged, Enum {
+            return EnumValueCache<T>.Names;
         }
     }
 }

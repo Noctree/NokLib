@@ -22,8 +22,8 @@ namespace NokLib
     [Serializable]
     public class LimitReachedException<T> : LimitReachedException
     {
-        public new T? Limit { get; } = default;
-        public T? ActualValue { get; } = default;
+        public new T? Limit { get; }
+        public T? ActualValue { get; }
         public LimitReachedException(T limit, T actualValue, string? message = null) :
             base(message is null ?
                 $"Value {actualValue} exceeds maximum limit {limit}" :
@@ -43,7 +43,8 @@ namespace NokLib
     [Serializable]
     public class UnsupportedTypeException : Exception
     {
-        public Type? TheUnsupportedType { get; } = null;
+        public Type? ExpectedType { get; }
+        public Type? ActualType { get; }
         /// <summary>
         /// Create a new instance of the exception
         /// </summary>
@@ -57,10 +58,13 @@ namespace NokLib
         /// Create a new instance of the exception with a message describing what type is not supported
         /// </summary>
         /// <param name="type">The unsupported type</param>
-        public UnsupportedTypeException(Type type) : this(type, $"Objects of type {type.FullName} are not supported") { }
+        public UnsupportedTypeException(Type actualType) : this($"Objects of type {actualType.FullName} are not supported") {
+            ActualType = actualType;
+        }
 
-        public UnsupportedTypeException(Type type, string? message) : base(message) {
-            TheUnsupportedType = type;
+        public UnsupportedTypeException(Type actualType, Type expectedType, string? message) : base(message) {
+            ExpectedType = expectedType;
+            ActualType = actualType;
         }
 
         public UnsupportedTypeException(string? message, Exception? innerException) : base(message, innerException) { }
@@ -113,31 +117,13 @@ namespace NokLib
     }
 
     /// <summary>
-    /// Thrown when a type is not a type the method expets
-    /// </summary>
-    [Serializable]
-    public class TypeMismatchException : Exception
-    {
-        /// <summary>
-        /// Create a new instance of the exception
-        /// </summary>
-        public TypeMismatchException() { }
-        /// <summary>
-        /// Create a new instance of the exception with a message describing the cause of the exception
-        /// </summary>
-        /// <param name="message">Cause of the exception</param>
-        public TypeMismatchException(string message) : base(message) { }
-        public TypeMismatchException(Type a, Type b, string reason) : base($"Type {a.Name} is {reason} {b.Name}") { }
-
-        public TypeMismatchException(string? message, Exception? innerException) : base(message, innerException) { }
-    }
-
-    /// <summary>
     /// Thrown when sizes of two array do not match
     /// </summary>
     [Serializable]
     public class SizeMismatchException : Exception
     {
+        public int SizeOfA { get; }
+        public int SizeOfB { get; }
         /// <summary>
         /// Create a new instance of the exception
         /// </summary>
@@ -146,8 +132,11 @@ namespace NokLib
         /// Create a new instance of the exception with a message describing the cause of the exception
         /// </summary>
         /// <param name="message">Cause of the exception</param>
-        public SizeMismatchException(string message) : base(message) { }
-        public SizeMismatchException(int sizeA, int sizeB) : base($"Object sizes do not match! {sizeA} != {sizeB}") { }
+        public SizeMismatchException(string? message) : base(message) { }
+        public SizeMismatchException(int sizeA, int sizeB, string? message = null) : base($"{message ?? "Object sizes do not match"} ({sizeA} != {sizeB})") {
+            SizeOfA = sizeA;
+            SizeOfB = sizeB;
+        }
 
         public SizeMismatchException(string? message, Exception? innerException) : base(message, innerException) { }
     }
