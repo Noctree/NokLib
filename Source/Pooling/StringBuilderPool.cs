@@ -8,7 +8,7 @@ public static class StringBuilderPool
     /// <summary>
     /// If released StringBuilders length exceeds this threshold its length and capacity is set to 0 to release its unused memory
     /// </summary>
-    public static int StrigBuilderLengthDeallocationThreshold { get; set; } = 1024;
+    public static int StrigBuilderLengthDeallocationThreshold { get; set; } = 4096;
 
     private static readonly IObjectPool<StringBuilder> ObjectPool = new ConcurrentObjectPool<StringBuilder>(OnRelease, Create, OnGet, null);
     private static StringBuilder Create() => new StringBuilder();

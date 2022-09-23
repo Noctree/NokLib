@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace NokLib;
 
@@ -9,46 +10,46 @@ public class CastingTest
     public enum IntEnum : int { FirstValue = 1, SecondValue, ThirdValue }
     public enum ByteEnum : byte { FirstValue = 1, SecondValue, ThirdValue }
     [TestMethod]
-    public void LongEnumToInt() => LongEnum.SecondValue.ToInt();
+    public void LongEnumToInt() => Assert.ThrowsException<InvalidCastException>(() => LongEnum.SecondValue.ToInt());
 
     [TestMethod]
     public void IntEnumToInt() => IntEnum.FirstValue.ToInt();
 
     [TestMethod]
-    public void ByteEnumToInt() => ByteEnum.ThirdValue.ToInt();
+    public void ByteEnumToInt() => Assert.ThrowsException<InvalidCastException>(() => ByteEnum.ThirdValue.ToInt());
 
     [TestMethod]
     public void LongEnumToLong() => LongEnum.SecondValue.ToLong();
 
     [TestMethod]
-    public void IntEnumToLong() => IntEnum.FirstValue.ToLong();
+    public void IntEnumToLong() => Assert.ThrowsException<InvalidCastException>(() => IntEnum.FirstValue.ToLong());
 
     [TestMethod]
-    public void ByteEnumToLong() => ByteEnum.ThirdValue.ToLong();
+    public void ByteEnumToLong() => Assert.ThrowsException<InvalidCastException>(() => ByteEnum.ThirdValue.ToLong());
 
     [TestMethod]
     public void FromLongToLongEnum() => 1L.ToEnum<LongEnum>();
 
     [TestMethod]
-    public void FromIntToLongEnum() => 1.ToEnum<LongEnum>();
+    public void FromIntToLongEnum() => Assert.ThrowsException<InvalidCastException>(() => 1.ToEnum<LongEnum>());
 
     [TestMethod]
-    public void FromByteToLongEnum() => ((byte)1).ToEnum<LongEnum>();
+    public void FromByteToLongEnum() => Assert.ThrowsException<InvalidCastException>(() => ((byte)1).ToEnum<LongEnum>());
 
     [TestMethod]
-    public void FromLongToIntEnum() => 2L.ToEnum<IntEnum>();
+    public void FromLongToIntEnum() => Assert.ThrowsException<InvalidCastException>(() => 2L.ToEnum<IntEnum>());
 
     [TestMethod]
     public void FromIntToIntEnum() => 2.ToEnum<IntEnum>();
 
     [TestMethod]
-    public void FromByteToIntEnum() => ((byte)2).ToEnum<IntEnum>();
+    public void FromByteToIntEnum() => Assert.ThrowsException<InvalidCastException>(() => ((byte)2).ToEnum<IntEnum>());
 
     [TestMethod]
-    public void FromLongToByteEnum() => 3L.ToEnum<ByteEnum>();
+    public void FromLongToByteEnum() => Assert.ThrowsException<InvalidCastException>(() => 3L.ToEnum<ByteEnum>());
 
     [TestMethod]
-    public void FromIntToByteEnum() => 3.ToEnum<ByteEnum>();
+    public void FromIntToByteEnum() => Assert.ThrowsException<InvalidCastException>(() => 3.ToEnum<ByteEnum>());
 
     [TestMethod]
     public void FromByteToByteEnum() => ((byte)3).ToEnum<ByteEnum>();
