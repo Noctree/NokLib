@@ -20,7 +20,7 @@ public class LimitReachedException : Exception
 /// Thrown when a collection limit is reached
 /// </summary>
 [Serializable]
-public class LimitReachedException<T> : LimitReachedException
+public sealed class LimitReachedException<T> : LimitReachedException
 {
     public new T? Limit { get; }
     public T? ActualValue { get; }
@@ -41,7 +41,7 @@ public class LimitReachedException<T> : LimitReachedException
 /// Thrown when a type is not supported by a generic class/method
 /// </summary>
 [Serializable]
-public class UnsupportedTypeException : Exception
+public sealed class UnsupportedTypeException : NotSupportedException
 {
     public Type? ExpectedType { get; }
     public Type? ActualType { get; }
@@ -57,11 +57,26 @@ public class UnsupportedTypeException : Exception
     /// <summary>
     /// Create a new instance of the exception with a message describing what type is not supported
     /// </summary>
-    /// <param name="type">The unsupported type</param>
+    /// <param name="actualType">The unsupported type</param>
     public UnsupportedTypeException(Type actualType) : this($"Objects of type {actualType.FullName} are not supported") {
         ActualType = actualType;
     }
 
+    /// <summary>
+    /// Create a new instance of the exception with a message describing what type is not supported and the unsupported type
+    /// </summary>
+    /// <param name="actualType">The unsupported type</param>
+    /// <param name="message">Cause of the exception</param>
+    public UnsupportedTypeException(Type actualType, string message) : base(message) {
+        ActualType = actualType;
+    }
+
+    /// <summary>
+    /// Create a new instance of the exception with a message describing what type is not supported, the unsupported type and the type that is supported
+    /// </summary>
+    /// <param name="actualType">The unsupported type</param>
+    /// <param name="expectedType">The type that was expected</param>
+    /// <param name="message">Cause of the exception</param>
     public UnsupportedTypeException(Type actualType, Type expectedType, string? message) : base(message) {
         ExpectedType = expectedType;
         ActualType = actualType;
@@ -74,7 +89,7 @@ public class UnsupportedTypeException : Exception
 /// Thrown when an invalid handle is used
 /// </summary>
 [Serializable]
-public class InvalidHandleException : Exception
+public sealed class InvalidHandleException : Exception
 {
     /// <summary>
     /// Create a new instance of the exception
@@ -93,7 +108,7 @@ public class InvalidHandleException : Exception
 /// Thrown when an object has invalid size
 /// </summary>
 [Serializable]
-public class InvalidSizeException : Exception
+public sealed class InvalidSizeException : Exception
 {
     public int? ExpectedSize { get; } = null;
     public int? ActualSize { get; } = null;
@@ -102,6 +117,12 @@ public class InvalidSizeException : Exception
     /// </summary>
     public InvalidSizeException() { }
 
+    /// <summary>
+    /// Create a new instance of the exception with a message describing the cause of the exception
+    /// </summary>
+    /// <param name="expectedSize">The expected size of the object</param>
+    /// <param name="actualSize">The actual size of the object</param>
+    /// <param name="message">Cause of the exception</param>
     public InvalidSizeException(int expectedSize, int actualSize, string? message) : base(message) {
         ExpectedSize = expectedSize;
         ActualSize = actualSize;
@@ -120,7 +141,7 @@ public class InvalidSizeException : Exception
 /// Thrown when sizes of two array do not match
 /// </summary>
 [Serializable]
-public class SizeMismatchException : Exception
+public sealed class SizeMismatchException : Exception
 {
     public int SizeOfA { get; }
     public int SizeOfB { get; }
@@ -145,7 +166,7 @@ public class SizeMismatchException : Exception
 /// Thrown when an attempt to insert an object into a collection already containing it is made
 /// </summary>
 [Serializable]
-public class DuplicateObjectInCollectionException : Exception
+public sealed class DuplicateObjectInCollectionException : Exception
 {
     /// <summary>
     /// Create a new instance of the exception
@@ -164,7 +185,7 @@ public class DuplicateObjectInCollectionException : Exception
 /// Thrown when an operation fails because of issues connected with concurrency
 /// </summary>
 [Serializable]
-public class ConcurrencyException : Exception
+public sealed class ConcurrencyException : Exception
 {
     /// <summary>
     /// Create a new instance of the exception

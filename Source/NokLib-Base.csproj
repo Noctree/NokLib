@@ -7,7 +7,7 @@
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
-    <Authors>Noctre</Authors>
+    <Authors>Matyáš Holub</Authors>
     <Product />
     <Company />
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -16,6 +16,13 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <SignAssembly>False</SignAssembly>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Title>NokLib</Title>
+    <RepositoryUrl>https://github.com/Noctree/NokLib</RepositoryUrl>
+    <AssemblyVersion>1.2</AssemblyVersion>
+    <FileVersion>1.2</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
