@@ -35,7 +35,7 @@ jobs:
       - name: Build Release
         run: dotnet build -c release --no-restore
       - name: Test Release
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test -c release --no-build --verbosity normal
       
       # Auto build a new release
       - name: Upload release
