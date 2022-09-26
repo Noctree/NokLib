@@ -14,7 +14,7 @@ public static class NokLibBase
     /// <summary>
     /// Name of the build
     /// </summary>
-    public static readonly string VersionName = "GitHub";
+    public static readonly string VersionName = "NokLib Core";
 
     /// <summary>
     /// Full name of the build
